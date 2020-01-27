@@ -1,0 +1,16 @@
+<% include partials/head %>
+<body>
+  <h1>Game creator</h1>
+  <form class="" action="/newgame" method="post">
+    <label for="gamename">Game name</label>
+    <input type="text" name="gamename" id="gamename" value="game1">
+    <label for="richness">richness</label>
+    <input type="range" name="richness" id="richness" min="0" max="10">
+    <label for="enemydificulty">enemy</label>
+    <input type="range" name="enemydificulty" id="enemydificulty" min="0" max="10">
+    <input type="submit">
+  </form>
+</body>
+
+<script src="/javascripts/bundle.js" type="text/javascript"></script>
+</html>
