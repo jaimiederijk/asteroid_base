@@ -1,6 +1,12 @@
+// world generator
+// adds system to world json
+//
 
 const objectTypes = {
-  asteroids: {
+  system: {
+    size:20000
+  },
+  celestialObjects: {
     name:"asteroid",
     subTypes: [
       {
@@ -78,14 +84,35 @@ const objectTypes = {
 }
 
 const emptySystem = {
+  systemName:"",
   systemObjects:[]
 };
 
 
-var makeName = () => {
+var makeName = (type) => {
   var result           = '';
   var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
   var charactersLength = characters.length;
+  var typeCharacter = '';
+
+  switch (type) {
+    case 'star':
+      typeCharacter = 'S';
+      break;
+    case 'comet':
+      typeCharacter = 'C';
+      break;
+    case 'asteroid':
+      typeCharacter = 'A';
+      break;
+    case 'system':
+      typeCharacter = 'SYS';
+      break;
+    default:
+      typeCharacter = 'X';
+  };
+
+  result += typeCharacter;
   for ( var i = 0; i < 3; i++ ) {
     result += characters.charAt(Math.floor(Math.random() * charactersLength));
   }
@@ -94,29 +121,90 @@ var makeName = () => {
 
 var addStar = (starSystem) => {
   var system = starSystem;
-
+  var systemCenterCoordinates = objectTypes.system.size/2;
   var starType = Math.floor(Math.random() * objectTypes.stars.subTypes.length );
 
   var star = {
-    name:makeName(),
+    name:makeName('star'),
     type:"star",
     className:objectTypes.stars.subTypes[starType].className,
     color:objectTypes.stars.subTypes[starType].color,
+    systemCoordinates:{x:systemCenterCoordinates,y:systemCenterCoordinates}
   }
   system.systemObjects.push(star);
 
   return system;
 }
 
+var randomObject = () => {
+  var objectType = Math.floor(Math.random() * objectTypes.celestialObjects.subTypes.length );
+  var subType = objectTypes.celestialObjects.subTypes[objectType];
 
-var generator = (settings) => {
-  //output a json with all info about a single systems
-  var world = {};
+  return subType;
+}
 
-  world = addStar(emptySystem);
-  console.log("worldgen output");
-  console.log(world);
-  return world;
+var randomSystemCoordinates = () => {
+  var chosenCoordinates = {x:0,y:0};
+
+  var randomCoordinate = () => {
+    Math.floor(Math.random() * objectTypes.system.size );
+  }
+  var x = randomCoordinate();
+  var y = randomCoordinate();
+  chosenCoordinates.x = x;
+  chosenCoordinates.y = y;
+
+  return chosenCoordinates;
+
+}
+
+var createObject = () => {
+  var chosenObject = randomObject();
+  var chosenCoordinates = randomSystemCoordinates();
+
+  var object = {
+    name:makeName(chosenObject.className),
+    type:chosenObject.className,
+    color:"grey",
+    systemCoordinates:chosenCoordinates
+  };
+
+  return object;
+}
+
+var addObjects = (system) => {
+  var systemWithObjects = system;
+
+  for (var i = 0; i < 10; i++) {
+    systemWithObjects.systemObjects.push(createObject());
+  }
+
+  return systemWithObjects;
+}
+
+var generateSystem = () => {
+  var systemWithStar = {};
+  var systemWithObjects = {};
+  var newSystem = emptySystem;
+
+  newSystem.systemName = makeName("system");
+
+  systemWithStar = addStar(emptySystem);
+  systemWithObjects = addObjects(systemWithStar);
+
+  return systemWithObjects;
+
+}
+
+// output world with new system
+var generator = (settings, oldWorld) => {
+  var gameWorld = oldWorld;
+  var newSystem = {};
+
+  newSystem = generateSystem();
+  gameWorld.world.systems.push(newSystem);
+
+  return gameWorld;
 }
 
 module.exports = generator;

@@ -2,6 +2,7 @@
 <body>
   <h1><%= gamedata.gamename %></h1>
   <section class=systemview>
+    <h2><%= gamedata.world.systems[0].systemName %></h2>
     <% gamedata.world.systems[0].systemObjects.forEach(function(object){ %>
       <%- include('partials/object', {object: object}); %>
     <% }); %>

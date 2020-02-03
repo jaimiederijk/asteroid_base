@@ -13,33 +13,24 @@ router.get('/newgame', function(req, res, next) {
 });
 
 router.post('/newgame', (req, res, next) => {
-  console.log("sometime i cry");
-  console.log(req.param);
   // console.log(req.body);
-  var sys = worldGen();
-  console.log("post req");
-  console.log(sys);
-  res.cookie('gamedata', {
+  var emptyWorld = {
     gamename:req.body.gamename,
     world: {
-      richness: req.body.richness,
-      systems:[
-        {
-          systemObjects: sys.systemObjects
-        }
-      ]
-    },
-    enemydificulty: req.body.enemydificulty
-  }, { maxAge: 900000})
+      systems:[]
+    }
+  };
+  var settings = req.body.gamename;
+  var world = worldGen(settings, emptyWorld);
 
+  res.cookie('gamedata', world, { maxAge: 900000})
+  console.log(world.world.systems[0]);
   // res.send({ name: req.body.gamename })
   res.redirect('/game');
 
 });
 
 router.get('/game', (req, res, next) => {
-  console.log("gamedata:");
-  console.log(req.cookies.gamedata.world.systems[0]);
 
   res.render('game', {title: 'asteroidbase',gamedata:req.cookies.gamedata})
 });
