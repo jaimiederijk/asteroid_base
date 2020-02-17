@@ -26,7 +26,7 @@ var paths = {
   },
   scripts: {
     src: 'public/javascripts/**/*.js',
-    dest: 'public/javascripts/'
+    dest: 'public/build/'
   }
 };
 

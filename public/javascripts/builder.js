@@ -1,5 +1,6 @@
-var mainmenu = require('./mainmenu.js');
+// var mainmenu = require('./mainmenu.js');
 
-var drop = "loaded";
+var indexedDB = require('./indexedDB.js');
 
-console.log(mainmenu(2));
+
+indexedDB();
