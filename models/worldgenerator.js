@@ -197,14 +197,14 @@ var generateSystem = () => {
 }
 
 // output world with new system
-var generator = (settings, oldWorld) => {
-  var gameWorld = oldWorld;
+var generator = (settings) => {
+  // var gameWorld = oldWorld;
   var newSystem = {};
 
   newSystem = generateSystem();
-  gameWorld.world.systems.push(newSystem);
+  // gameWorld.world.systems.push(newSystem);
 
-  return gameWorld;
+  return newSystem;
 }
 
 module.exports = generator;

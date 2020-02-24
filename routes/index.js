@@ -21,13 +21,22 @@ router.post('/newgame', (req, res, next) => {
     }
   };
   var settings = req.body.gamename;
-  var world = worldGen(settings, emptyWorld);
+  console.log('settings:');
+  console.log(settings);
+  var newSystem = worldGen(settings);
 
-  res.cookie('gamedata', world, { maxAge: 900000})
-  console.log(world.world.systems[0]);
+  //res.cookie('gamedata', world, { maxAge: 900000})
+  //console.log(world.world.systems[0]);
   // res.send({ name: req.body.gamename })
   res.redirect('/game');
 
+});
+
+router.get('/getnewsystem', (req, res, next) => {
+  var settings = {};
+  var world = worldGen(settings);
+
+  res.send(world);
 });
 
 router.get('/game', (req, res, next) => {
