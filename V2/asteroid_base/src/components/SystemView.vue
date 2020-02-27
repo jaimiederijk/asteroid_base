@@ -5,7 +5,13 @@
       <li
         v-for="system in systems"
         :key="system.systemName">
-        {{ system.systemName }}
+        <h2>{{ system.systemName }}</h2>
+        <ul>
+          <li v-for="object in system.systemObjects"
+          :key="object.name">
+            <button v-on:click="clickObject()" name="button">{{ object.name }}</button>
+          </li>
+        </ul>
       </li>
     </ul>
   </div>
@@ -22,9 +28,13 @@ export default {
   computed: mapState({
     systems: (state) => state.systems,
   }),
-  methods: mapActions([
-    'populateNewSystem',
-  ]),
+  methods: {
+    ...mapActions(['populateNewSystem',
+    ]),
+    clickObject: () => {
+      console.log('df');
+    },
+  },
 };
 </script>
 
