@@ -1,17 +1,13 @@
 <template>
   <div id="gamepage">
-    <SystemView/>
+    <router-link :to="{ name: 'mainmenu' }">Menu</router-link>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
 
-import SystemView from '@/components/SystemView';
-
 export default {
   name: 'Game',
-  components: {
-    SystemView,
-  },
 };
 </script>

@@ -2,6 +2,8 @@
 // adds system to world json
 //
 
+import { v4 as uuidv4 } from 'uuid';
+
 const objectTypes = {
   system: {
     size: 20000,
@@ -11,18 +13,22 @@ const objectTypes = {
     subTypes: [
       {
         className: 'comet',
+        color: 'greyblue',
         sizeRange: [10, 100],
         characteristics: {
           possibleResources: ['water', 'ice'],
+          makeuptype: ['stony', 'carbonaceous', 'metallic'],
         },
       }, {
         className: 'meteoroid',
+        color: 'lightgrey',
         sizeRange: [1, 10],
         characteristics: {
           possibleResources: ['metal', 'rock'],
         },
       }, {
         className: 'asteroid',
+        color: 'grey',
         sizeRange: [10, 100],
         characteristics: {
           possibleResources: ['metal', 'rock'],
@@ -87,9 +93,13 @@ function EmptySystem(name, objects) {
   this.systemName = name;
   this.systemObjects = objects;
 }
+function addUuid(type) {
+  const newID = type + uuidv4();
 
+  return newID;
+}
 
-const makeName = (type) => {
+function makeName(type) {
   let result = '';
   const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
   const charactersLength = characters.length;
@@ -117,14 +127,15 @@ const makeName = (type) => {
     result += characters.charAt(Math.floor(Math.random() * charactersLength));
   }
   return result;
-};
+}
 
-const addStar = (starSystem) => {
+function addStar(starSystem) {
   const system = starSystem;
   const systemCenterCoordinates = objectTypes.system.size / 2;
   const starType = Math.floor(Math.random() * objectTypes.stars.subTypes.length);
 
   const star = {
+    id: addUuid('sta'),
     name: makeName('star'),
     type: 'star',
     className: objectTypes.stars.subTypes[starType].className,
@@ -134,20 +145,20 @@ const addStar = (starSystem) => {
   system.systemObjects.push(star);
 
   return system;
-};
+}
 
-const randomObject = () => {
+function randomObject() {
   const objectType = Math.floor(Math.random() * objectTypes.celestialObjects.subTypes.length);
   const subType = objectTypes.celestialObjects.subTypes[objectType];
 
   return subType;
-};
+}
 
-const randomSystemCoordinates = () => {
+function randomSystemCoordinates() {
   const chosenCoordinates = { x: 0, y: 0 };
 
   function randomCoordinate() {
-    Math.floor(Math.random() * objectTypes.system.size);
+    return Math.floor(Math.random() * objectTypes.system.size);
   }
   const x = randomCoordinate();
   const y = randomCoordinate();
@@ -155,33 +166,37 @@ const randomSystemCoordinates = () => {
   chosenCoordinates.y = y;
 
   return chosenCoordinates;
-};
+}
 
-const createObject = () => {
-  const chosenObject = randomObject();
+function createObject(newobject) {
+  const chosenObject = newobject;
   const chosenCoordinates = randomSystemCoordinates();
 
   const object = {
+    id: addUuid(chosenObject.className.substring(0, 3)),
     name: makeName(chosenObject.className),
     type: chosenObject.className,
-    color: 'grey',
+    color: chosenObject.color,
     systemCoordinates: chosenCoordinates,
+    characteristics: {
+      integrity: Math.floor(Math.random() * 60) + 20,
+    },
   };
 
   return object;
-};
+}
 
-const addObjects = (system) => {
+function addObjects(system) {
   const systemWithObjects = system;
 
   for (let i = 0; i < 10; i += 1) {
-    systemWithObjects.systemObjects.push(createObject());
+    systemWithObjects.systemObjects.push(createObject(randomObject()));
   }
 
   return systemWithObjects;
-};
+}
 
-const generateSystem = () => {
+function generateSystem() {
   let systemWithStar = {};
   let systemWithObjects = {};
 
@@ -189,15 +204,16 @@ const generateSystem = () => {
 
   systemWithStar = addStar(newSystem);
   systemWithObjects = addObjects(systemWithStar);
+  systemWithObjects.id = addUuid('SYS');
 
   return systemWithObjects;
-};
+}
 
 // output world with new system
-const systemgenerator = () => {
+function systemgenerator() {
   const newSystem = generateSystem();
 
   return newSystem;
-};
+}
 
 export { systemgenerator as default };

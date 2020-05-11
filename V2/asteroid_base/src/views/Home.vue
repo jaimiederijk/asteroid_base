@@ -1,18 +1,16 @@
 <template>
   <div class="home">
     <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome  veto Your Vue.js App"/>
+    <p>A game about building a empire in the cold darkness of space</p>
+    <router-link :to="{ name: 'mainmenu' }">Game</router-link>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld';
 
 export default {
   name: 'Home',
   components: {
-    HelloWorld,
   },
 };
 </script>

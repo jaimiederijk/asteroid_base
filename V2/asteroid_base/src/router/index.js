@@ -20,8 +20,29 @@ const routes = [
   },
   {
     path: '/game',
-    name: 'game',
     component: () => import('../views/Game'),
+    children: [
+      {
+        name: 'mainmenu',
+        path: '',
+        component: () => import('../components/MainMenu'),
+      },
+      {
+        name: 'systemview',
+        path: 'systemview',
+        component: () => import('../components/SystemView'),
+      },
+      {
+        name: 'goverment',
+        path: 'goverment',
+        component: () => import('../components/Goverment'),
+      },
+      {
+        name: 'newgame',
+        path: 'newgame',
+        component: () => import('../components/NewGame'),
+      },
+    ],
   },
 ];
 
