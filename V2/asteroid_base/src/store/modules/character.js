@@ -9,10 +9,6 @@ class Character {
     this.job = character.job;
   }
 
-  textFunction() {
-    console.log(this.firstName);
-  }
-
   changeLastName(newlastname) {
     this.lastName = newlastname;
   }

@@ -1,5 +1,5 @@
 <template>
-  <div class="ObjectView">
+  <div class="object_view">
     <h3>{{ object.name }}</h3>
     <p>{{ object.type }}</p>
   </div>
@@ -8,15 +8,12 @@
 
 
 export default {
-  name: 'ObjectView',
+  name: 'ObjectCard',
   props: {
     object: {
       type: Object,
       default() {
-        return {
-          name: 'not selected',
-          type: 'not selected',
-        };
+        return {};
       },
     },
   },

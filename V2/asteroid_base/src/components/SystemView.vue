@@ -3,22 +3,9 @@
     <button v-on:click="populateNewSystem()">start</button>
     <ul>
       <li
-        v-for="character in characters"
-        :key="character.id">
-        <h2>{{character.firstName}} {{character.lastName}}</h2>
-        <button
-          type="button" name="button"
-          v-on:click="changeLastName(character)"
-        >
-          change last name
-        </button>
-      </li>
-    </ul>
-    <ul>
-      <li
         v-for="system in systems"
         :key="system.id">
-        <h2>{{ system.systemName }}</h2>
+        <h2>{{ system.name }}</h2>
         <ul>
           <li v-for="object in system.systemObjects"
           :key="object.name">
@@ -33,15 +20,15 @@
         </ul>
       </li>
     </ul>
-    <ObjectView
+    <ObjectCard
       v-bind:object="objectActive"
     />
   </div>
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex';
-import ObjectView from '@/components/ObjectView';
+import { mapState, mapActions, mapGetters } from 'vuex';
+import ObjectCard from '@/components/ObjectCard';
 
 
 export default {
@@ -53,10 +40,14 @@ export default {
   },
   props: {
   },
-  computed: mapState({
-    systems: (state) => state.systems,
-    characters: (state) => state.characters,
-  }),
+  computed: {
+    ...mapState({
+      systems: (state) => state.systems,
+      characters: (state) => state.characters,
+    }),
+    ...mapGetters([
+    ]),
+  },
   methods: {
     ...mapActions([
       'populateNewSystem',
@@ -67,7 +58,7 @@ export default {
     },
   },
   components: {
-    ObjectView,
+    ObjectCard,
   },
 };
 </script>

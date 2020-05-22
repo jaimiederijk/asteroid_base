@@ -28,14 +28,14 @@ const routes = [
         component: () => import('../components/MainMenu'),
       },
       {
-        name: 'systemview',
-        path: 'systemview',
+        name: 'system',
+        path: 'system',
         component: () => import('../components/SystemView'),
       },
       {
         name: 'goverment',
         path: 'goverment',
-        component: () => import('../components/Goverment'),
+        component: () => import('../components/GovermentView'),
       },
       {
         name: 'newgame',
