@@ -29,7 +29,7 @@
 
 <script>
 import { mapActions } from 'vuex';
-import CharacterCard from '@/components/CharacterCard';
+import CharacterCard from '@/components/subcomponents/CharacterCard';
 
 export default {
   name: 'NewGame',
@@ -52,11 +52,14 @@ export default {
   },
   methods: {
     ...mapActions([
-      'createNewCharacter',
     ]),
     submit() {
+      this.$store.dispatch('resetState');
       this.$store.dispatch('createNewCharacter', this.ruler);
       this.$store.dispatch('setGameSettings', this.galaxySettings);
+      this.$store.dispatch('populateNewSystem').then((id) => {
+        this.$store.dispatch('changeSystemView', id);
+      });
       this.$router.push('system');
     },
   },

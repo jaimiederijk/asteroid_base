@@ -1,8 +1,6 @@
-import { v4 as uuidv4 } from 'uuid';
-
 class GameObject {
-  constructor(type) {
-    this.id = uuidv4();
+  constructor(type, id) {
+    this.id = id;
     this.type = type;
     this.name = this.makeName();
   }

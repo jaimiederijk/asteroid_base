@@ -1,34 +1,35 @@
 <template>
   <div>
     <button v-on:click="populateNewSystem()">start</button>
+    <h2>currentSystemView</h2>
+    <SystemMap
+      v-bind:system="getSystemById(view.currentView)"
+      v-on:changeActiveObject="changeActiveObject"
+    />
+    <ObjectCard
+      v-bind:object="objectActive"
+    />
     <ul>
       <li
         v-for="system in systems"
         :key="system.id">
-        <h2>{{ system.name }}</h2>
-        <ul>
-          <li v-for="object in system.systemObjects"
-          :key="object.name">
-            <button
-              v-on:click="changeActiveObject(object)"
-              name="button"
-              v-bind:class="object.color"
-            >
-              {{ object.name }}
-            </button>
-          </li>
-        </ul>
+        <button
+          type="button"
+          name="button"
+          v-on:click="changeSystemView(system.id)"
+        >
+          {{ system.name }}
+        </button>
       </li>
     </ul>
-    <ObjectCard
-      v-bind:object="objectActive"
-    />
+
   </div>
 </template>
 
 <script>
 import { mapState, mapActions, mapGetters } from 'vuex';
-import ObjectCard from '@/components/ObjectCard';
+import ObjectCard from '@/components/subcomponents/ObjectCard';
+import SystemMap from '@/components/subcomponents/SystemMap';
 
 
 export default {
@@ -42,16 +43,19 @@ export default {
   },
   computed: {
     ...mapState({
-      systems: (state) => state.systems,
+      systems: (state) => state.systems.all,
       characters: (state) => state.characters,
+      settings: (state) => state.settings,
+      view: (state) => state.view,
     }),
     ...mapGetters([
+      'getSystemById',
     ]),
   },
   methods: {
     ...mapActions([
       'populateNewSystem',
-      'changeLastName',
+      'changeSystemView',
     ]),
     changeActiveObject(obj) {
       this.objectActive = obj;
@@ -59,15 +63,11 @@ export default {
   },
   components: {
     ObjectCard,
+    SystemMap,
   },
 };
 </script>
 
 <style lang="scss" scoped>
-  @each $colorname, $color in $sys_obj_colors {
-    .#{$colorname} {
-      background-color: $color;
-    }
-  }
 
 </style>

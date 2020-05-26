@@ -3,14 +3,13 @@ import CelestialObject from './celestialobject';
 import objectTypes from './objecttypes';
 
 class System extends GameObject {
-  constructor(settings) {
-    super('system');
+  constructor(settings, id) {
+    super('system', id);
     this.systemObjects = [];
     this.init(settings.density);
   }
 
   init(density) {
-    console.log(density);
     this.addRandomStar();
     const densityNumber = Math.floor(Math.random() * density) + 10;
     for (let i = 0; i < densityNumber; i += 1) {
@@ -45,8 +44,8 @@ class System extends GameObject {
 }
 
 const systemGenerator = {
-  generateNewSystem: (settings) => {
-    const newSystem = new System(settings);
+  generateNewSystem: (settings, id) => {
+    const newSystem = new System(settings, id);
     return newSystem;
   },
 };

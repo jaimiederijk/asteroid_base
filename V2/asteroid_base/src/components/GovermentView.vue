@@ -7,7 +7,7 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import CharacterCard from '@/components/CharacterCard';
+import CharacterCard from '@/components/subcomponents/CharacterCard';
 
 export default {
   name: 'GovermentView',

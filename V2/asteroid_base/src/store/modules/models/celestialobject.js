@@ -1,9 +1,10 @@
+import { v4 as uuidv4 } from 'uuid';
 import GameObject from './gameobject';
 import objectTypes from './objecttypes';
 
 class CelestialObject extends GameObject {
   constructor(objecttype) {
-    super(objecttype.className);
+    super(objecttype.className, uuidv4());
     this.systemCoordinates = this.resolveSystemCoordinates();
     this.color = objecttype.color;
     this.characteristics = {

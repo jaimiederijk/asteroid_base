@@ -2,6 +2,7 @@
   <div class="object_view">
     <h3>{{ object.name }}</h3>
     <p>{{ object.type }}</p>
+    <p>integrity: {{ object.characteristics.integrity }}%</p>
   </div>
 </template>
 <script>
