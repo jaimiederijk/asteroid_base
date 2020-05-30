@@ -1,7 +1,8 @@
 class GameObject {
-  constructor(type, id) {
+  constructor(type, id, shortName) {
     this.id = id;
     this.type = type;
+    this.shortName = shortName;
     this.name = this.makeName();
   }
 
@@ -11,24 +12,10 @@ class GameObject {
     const charactersLength = characters.length;
     let typeCharacter = '';
 
-    switch (this.type) {
-      case 'star':
-        typeCharacter = 'STA';
-        break;
-      case 'comet':
-        typeCharacter = 'COM';
-        break;
-      case 'meteoroid':
-        typeCharacter = 'MET';
-        break;
-      case 'asteroid':
-        typeCharacter = 'AST';
-        break;
-      case 'system':
-        typeCharacter = 'SYS';
-        break;
-      default:
-        typeCharacter = 'UNI';
+    if (typeof this.shortName !== 'undefined') {
+      typeCharacter = this.shortName;
+    } else {
+      typeCharacter = 'UNI';
     }
 
     result += typeCharacter;
@@ -36,6 +23,14 @@ class GameObject {
       result += characters.charAt(Math.floor(Math.random() * charactersLength));
     }
     return result;
+  }
+
+  static getRandomNumber(min, max, precision) {
+    const decimal = precision;
+    const minRange = Math.ceil(min * decimal);
+    const maxRange = Math.floor(max * decimal);
+
+    return (Math.floor(Math.random() * (maxRange - minRange + 1)) + minRange) / decimal;
   }
 }
 

@@ -4,7 +4,7 @@ import objectTypes from './objecttypes';
 
 class System extends GameObject {
   constructor(settings, id) {
-    super('system', id);
+    super('system', id, 'SYS');
     this.systemObjects = [];
     this.init(settings.density);
   }
@@ -27,7 +27,8 @@ class System extends GameObject {
 
   addRandomStar() {
     const chosenObject = this.constructor.getRandomObjectOffType(objectTypes.stars);
-    chosenObject.className = 'star';
+    chosenObject.className = objectTypes.stars.className;
+    chosenObject.shortName = objectTypes.stars.shortName;
     const star = new CelestialObject(chosenObject);
     this.systemObjects.push(star);
   }

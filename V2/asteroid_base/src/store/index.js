@@ -6,6 +6,7 @@ import settings from './modules/settings';
 import characters from './modules/characters';
 import systems from './modules/systems';
 import view from './modules/view';
+import nations from './modules/nations';
 
 Vue.use(Vuex);
 
@@ -21,5 +22,6 @@ export default new Vuex.Store({
     characters,
     systems,
     view,
+    nations,
   },
 });

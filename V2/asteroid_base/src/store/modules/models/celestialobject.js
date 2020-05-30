@@ -3,11 +3,16 @@ import GameObject from './gameobject';
 import objectTypes from './objecttypes';
 
 class CelestialObject extends GameObject {
-  constructor(objecttype) {
-    super(objecttype.className, uuidv4());
+  constructor(objectType) {
+    super(objectType.className, uuidv4(), objectType.shortName);
     this.systemCoordinates = this.resolveSystemCoordinates();
-    this.color = objecttype.color;
+    this.color = objectType.color;
+    this.shortName = objectType.shortName;
+
+
+    // console.log(GameObject.getRandomInt(powmin, powmax));
     this.characteristics = {
+      mass: this.resolveMass(objectType),
       integrity: Math.floor(Math.random() * 60) + 20,
     };
   }
@@ -24,6 +29,21 @@ class CelestialObject extends GameObject {
     return coordinates;
   }
 
+  resolveMass(objectType) {
+    let mass = 0;
+    if (this.type === 'star') {
+      const [solarMin, solarMax] = objectType.characteristics.massRange;
+      mass = GameObject.getRandomNumber(solarMin, solarMax, 100);
+    } else {
+      const [min, max, powmin, powmax] = objectType.characteristics.massRange;
+      mass = CelestialObject.getRandomMass(min, max, powmin, powmax);
+    }
+    return mass;
+  }
+  // resolveIntegrity() {
+  //
+  // }
+
   static randomSystemCoordinates() {
     const chosenCoordinates = { x: 0, y: 0 };
 
@@ -36,6 +56,13 @@ class CelestialObject extends GameObject {
     chosenCoordinates.y = y;
 
     return chosenCoordinates;
+  }
+
+  static getRandomMass(min, max, powmin, powmax) {
+    const number = GameObject.getRandomNumber(min, max, 10);
+    const power = GameObject.getRandomNumber(powmin, powmax, 1);
+
+    return Math.floor(number * 10 ** power);
   }
 }
 
