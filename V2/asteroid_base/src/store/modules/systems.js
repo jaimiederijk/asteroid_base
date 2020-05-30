@@ -34,6 +34,11 @@ const getters = {
   getSystemById: (state) => (id) => (
     state.all.find((system) => system.id === id)
   ),
+  getObjectById: (state) => (objectView) => {
+    const sys = state.all.find((system) => system.id === objectView.systemId);
+    const obj = sys.systemObjects.find((object) => object.id === objectView.id);
+    return obj;
+  },
 };
 
 const state = getDefaultState();

@@ -57,8 +57,9 @@ export default {
       'populateNewSystem',
       'changeSystemView',
     ]),
-    changeActiveObject(obj) {
+    changeActiveObject(obj, systemId) {
       this.objectActive = obj;
+      this.objectActive.systemId = systemId;
     },
   },
   components: {

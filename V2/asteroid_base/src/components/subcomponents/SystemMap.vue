@@ -5,7 +5,7 @@
       <li v-for="object in system.systemObjects"
       :key="object.name">
         <button
-          v-on:click="$emit('changeActiveObject',object)"
+          v-on:click="$emit('changeActiveObject',object, system.id)"
           name="button"
           v-bind:class="object.color"
         >
@@ -37,7 +37,7 @@ export default {
   @each $colorname, $color in $sys_obj_colors {
     .#{$colorname} {
       background-color: $color;
-      padding: 1rem;
+      padding: 0 1rem;
     }
   }
 

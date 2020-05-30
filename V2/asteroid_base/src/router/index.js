@@ -27,20 +27,33 @@ const routes = [
         name: 'mainmenu',
         path: '',
         component: () => import('../components/MainMenu'),
-      },
-      {
+      }, {
         name: 'system',
         path: 'system',
         component: () => import('../components/SystemView'),
         meta: { requiresState: true },
-      },
-      {
+      }, {
         name: 'goverment',
         path: 'goverment',
         component: () => import('../components/GovermentView'),
         meta: { requiresState: true },
-      },
-      {
+      }, {
+        name: 'objectview',
+        path: 'objectview/:systemId/:objectId',
+        beforeEnter: (to, from, next) => {
+          const payload = {
+            systemId: to.params.systemId,
+            objectId: to.params.objectId,
+          };
+          store.dispatch('changeObjectView', payload);
+          next({ name: 'object' });
+        },
+      }, {
+        name: 'object',
+        path: 'object',
+        component: () => import('../components/ObjectView'),
+        meta: { requiresState: true },
+      }, {
         name: 'newgame',
         path: 'newgame',
         component: () => import('../components/NewGame'),

@@ -19,6 +19,7 @@ class GameObject {
     }
 
     result += typeCharacter;
+    result += '-';
     for (let i = 0; i < 3; i += 1) {
       result += characters.charAt(Math.floor(Math.random() * charactersLength));
     }

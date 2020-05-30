@@ -10,6 +10,12 @@
       <p v-else>
         Mass: {{ object.characteristics.mass.toPrecision(2) }} kg
       </p>
+      <router-link :to="{
+        name: 'objectview',
+        params: {systemId: object.systemId, objectId: object.id }
+      }">
+        detail
+      </router-link>
     </div>
     <div v-else>
       <h3>nothing selected</h3>
