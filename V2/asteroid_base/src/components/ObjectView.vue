@@ -2,6 +2,7 @@
   <div>
     <p>{{ obj.name }}</p>
     <p>{{ obj.type }}</p>
+    <p>{{ obj.characteristics.mass }}</p>
   </div>
 </template>
 

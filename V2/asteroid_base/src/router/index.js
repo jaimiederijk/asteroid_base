@@ -44,6 +44,7 @@ const routes = [
           const payload = {
             systemId: to.params.systemId,
             objectId: to.params.objectId,
+            objectName: to.params.objectName,
           };
           store.dispatch('changeObjectView', payload);
           next({ name: 'object' });

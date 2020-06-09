@@ -12,7 +12,7 @@
       </p>
       <router-link :to="{
         name: 'objectview',
-        params: {systemId: object.systemId, objectId: object.id }
+        params: {systemId: object.systemId, objectId: object.id, objectName: object.name }
       }">
         detail
       </router-link>

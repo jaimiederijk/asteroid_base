@@ -22,6 +22,7 @@ const mutations = {
   changeObjectView(state, object) {
     state.objectView.systemId = object.systemId;
     state.objectView.id = object.objectId;
+    state.objectView.name = object.objectName;
   },
   resetState(state) {
     Object.assign(state, getDefaultState());
