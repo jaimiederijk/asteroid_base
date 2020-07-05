@@ -11,9 +11,6 @@ const actions = {
   changeLastName({ commit }, character) {
     commit('changeLastName', character);
   },
-  // resetState({ commit }) {
-  //   commit('resetState');
-  // },
 };
 
 const mutations = {

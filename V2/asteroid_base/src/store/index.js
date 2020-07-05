@@ -16,6 +16,12 @@ export default new Vuex.Store({
     resetState({ commit }) {
       commit('resetState');
     },
+    async progressTime({ dispatch, state }) {
+      await dispatch('progressCurrentGameTime');
+      if (!state.view.paused) {
+        dispatch('progressTime');
+      }
+    },
   },
   modules: {
     settings,

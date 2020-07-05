@@ -128,45 +128,52 @@ const objectTypes = {
     raw: [
       {
         name: 'metal ore',
-        mass: 0,
+        density: 2500,
+        type: 'ore',
       }, {
         name: 'carbonbased',
-        mass: 0,
+        density: 2200,
+        type: 'material',
       }, {
         name: 'water',
-        mass: 0,
+        density: 997,
+        type: 'material',
       }, {
-        name: 'food',
-        mass: 0,
+        name: 'organic',
+        density: 790,
+        type: 'material',
       }, {
         name: 'gas',
-        mass: 0,
+        density: 71,
+        type: 'gas',
       }, {
         name: 'waste',
+        density: 2000,
+        type: 'misc',
       },
     ],
     refined: [
       {
         name: 'metals',
-        mass: 0,
+        density: 0,
       }, {
         name: 'rare metals',
-        mass: 0,
+        density: 0,
       }, {
         name: 'heavy metals',
-        mass: 0,
+        density: 0,
       }, {
         name: 'water',
-        mass: 0,
+        density: 0,
       }, {
         name: 'food',
-        mass: 0,
+        density: 0,
       }, {
         name: 'noble gasses',
-        mass: 0,
+        density: 0,
       }, {
         name: 'fuel',
-        mass: 0,
+        density: 0,
       },
     ],
   },

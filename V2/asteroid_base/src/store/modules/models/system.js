@@ -1,3 +1,4 @@
+import { v4 as uuidv4 } from 'uuid';
 import GameObject from './gameobject';
 import CelestialObject from './celestialobject';
 import objectTypes from './objecttypes';
@@ -6,10 +7,14 @@ class System extends GameObject {
   constructor(settings, id) {
     super('system', id, 'SYS');
     this.systemObjects = [];
-    this.init(settings.density);
+    this.init(settings);
   }
 
-  init(density) {
+  init(settings) {
+    this.resolveCoordinates(settings);
+  }
+
+  populate(density) {
     this.addRandomStar();
     const densityNumber = Math.floor(Math.random() * density) + 10;
     for (let i = 0; i < densityNumber; i += 1) {
@@ -23,6 +28,16 @@ class System extends GameObject {
     const chosenObject = objectList.subTypes[objectTypeIndex];
 
     return chosenObject;
+  }
+
+  resolveCoordinates(settings) {
+    const { sqrt } = settings;
+    const mainDevider = Math.floor(settings.starMapSize / sqrt);
+
+    const x = Math.floor(Math.random() * mainDevider + (settings.systemsAdded.x * mainDevider));
+    const y = Math.floor(Math.random() * mainDevider + (settings.systemsAdded.y * mainDevider));
+
+    this.starMapCoordinates = { x, y };
   }
 
   addRandomStar() {
@@ -48,6 +63,22 @@ const systemGenerator = {
   generateNewSystem: (settings, id) => {
     const newSystem = new System(settings, id);
     return newSystem;
+  },
+  generateStarMap: (settings) => {
+    const starMap = [];
+    const modifiedSettings = settings;
+    modifiedSettings.systemsAdded = { x: 0, y: 0 };
+    modifiedSettings.sqrt = Math.floor(Math.sqrt(modifiedSettings.systemAmount));
+
+    for (let i = 0; i < modifiedSettings.systemAmount; i += 1) {
+      modifiedSettings.systemsAdded.x += 1;
+      if (modifiedSettings.systemsAdded.x === modifiedSettings.sqrt) {
+        modifiedSettings.systemsAdded.x = 1;
+        modifiedSettings.systemsAdded.y += 1;
+      }
+      starMap.push(new System(modifiedSettings, uuidv4()));
+    }
+    return starMap;
   },
 };
 

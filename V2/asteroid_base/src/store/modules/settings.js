@@ -7,6 +7,8 @@ const actions = {
 const mutations = {
   setGameSettings(state, settings) {
     state.density = settings.density;
+    state.systemAmount = 100;
+    state.starMapSize = 10000;
     state.difficulty = settings.difficulty;
   },
 };

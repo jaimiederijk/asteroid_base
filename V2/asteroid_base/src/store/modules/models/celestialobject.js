@@ -8,13 +8,12 @@ class CelestialObject extends GameObject {
     this.systemCoordinates = this.resolveSystemCoordinates();
     this.color = objectType.color;
     this.shortName = objectType.shortName;
-
-
     // console.log(GameObject.getRandomInt(powmin, powmax));
     this.characteristics = {
       mass: this.resolveMass(objectType),
       integrity: Math.floor(Math.random() * 60) + 20,
     };
+    this.resources = this.resolveResources();
   }
 
   resolveSystemCoordinates() {
@@ -40,9 +39,26 @@ class CelestialObject extends GameObject {
     }
     return mass;
   }
-  // resolveIntegrity() {
-  //
-  // }
+
+  resolveResources() {
+    const resources = [];
+    const amountOfResources = Math.floor(Math.random() * objectTypes.resources.raw.length);
+    const availableResources = objectTypes.resources.raw.filter((resource) => resource.type !== 'misc');
+    let availableMass = this.characteristics.mass;
+
+    do {
+      let resourceAssign = {};
+      const i = Math.floor(Math.random() * availableResources.length);
+      resourceAssign = availableResources[i];
+      if (!resources.some((res) => res.name === resourceAssign.name)) {
+        resourceAssign.mass = Math.floor(Math.random() * availableMass);
+        availableMass -= resourceAssign.mass;
+        resources.push(resourceAssign);
+      }
+    } while (resources.length < amountOfResources);
+
+    return resources;
+  }
 
   static randomSystemCoordinates() {
     const chosenCoordinates = { x: 0, y: 0 };

@@ -16,6 +16,9 @@ const actions = {
       resolve(payload.newId);
     });
   },
+  createStarMap({ commit, rootState }) {
+    commit('createStarMap', rootState.settings);
+  },
   // resetState({ commit }) {
   //   commit('resetState');
   // },
@@ -23,7 +26,12 @@ const actions = {
 
 const mutations = {
   populateNewSystem(state, payload) {
-    state.all.push(systemGenerator.generateNewSystem(payload.settings, payload.newId));
+    const newSystem = systemGenerator.generateNewSystem(payload.settings, payload.newId);
+    newSystem.populate(payload.settings.density);
+    state.all.push(newSystem);
+  },
+  createStarMap(state, settings) {
+    state.all.push(...systemGenerator.generateStarMap(settings));
   },
   resetState(state) {
     Object.assign(state, getDefaultState());

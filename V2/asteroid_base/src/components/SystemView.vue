@@ -1,7 +1,6 @@
 <template>
   <div>
     <button v-on:click="populateNewSystem()">start</button>
-    <h2>currentSystemView</h2>
     <SystemMap
       v-bind:system="getSystemById(view.currentView)"
       v-on:changeActiveObject="changeActiveObject"

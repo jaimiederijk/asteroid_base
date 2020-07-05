@@ -3,13 +3,20 @@
     <h2>Create a new game</h2>
     <form id="newgame-form" v-on:submit.prevent="submit">
       <fieldset v-if="formPage === 1">
+        <legend>create your nation</legend>
+        <label for="nation-name">Name</label>
+        <input v-model="nation.name" id="nation-name" type="text" placeholder="edit me">
+        <label for="nation-type">Type</label>
+        <input v-model="nation.type" id="nation-type" type="text" placeholder="edit me">
+      </fieldset>
+      <fieldset v-if="formPage === 2">
         <legend>create your ruler</legend>
         <label for="first-name">Firstname</label>
         <input v-model="ruler.firstName" id="firstname" type="text" placeholder="edit me">
         <label for="lastname">Lastname</label>
         <input v-model="ruler.lastName" id="lastname" type="text" placeholder="edit me">
       </fieldset>
-      <fieldset v-if="formPage === 2">
+      <fieldset v-if="formPage === 3">
         <legend>galaxy settings</legend>
         <label for="density">density</label>
         <label for="density-sparse">sparse</label>
@@ -32,11 +39,11 @@ import { mapActions } from 'vuex';
 import CharacterCard from '@/components/subcomponents/CharacterCard';
 
 export default {
-  name: 'NewGame',
+  name: 'Newgame',
   data() {
     return {
       formPage: 1,
-      maxPage: 2,
+      maxPage: 3,
       // temp data with default values
       ruler: {
         firstName: 'James',
@@ -48,6 +55,11 @@ export default {
         density: 10, // sparse, normal, dense
         difficulty: 'normal',
       },
+      nation: {
+        name: 'revnar',
+        type: 'empire',
+        playerLed: true,
+      },
     };
   },
   methods: {
@@ -55,12 +67,14 @@ export default {
     ]),
     submit() {
       this.$store.dispatch('resetState');
+      this.$store.dispatch('createNewNation', this.nation);
       this.$store.dispatch('createNewCharacter', this.ruler);
       this.$store.dispatch('setGameSettings', this.galaxySettings);
+      this.$store.dispatch('createStarMap');
       this.$store.dispatch('populateNewSystem').then((id) => {
         this.$store.dispatch('changeSystemView', id);
       });
-      this.$router.push('system');
+      this.$router.push({ name: 'system' });
     },
   },
   components: {

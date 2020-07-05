@@ -1,7 +1,8 @@
 <template>
   <div class="Goverment">
-    <h2>Goverment</h2>
+    <h2>Goverment of {{ getPlayerNation.name }}</h2>
     <CharacterCard v-bind:character="getCharacterWithJob('ruler')"/>
+
   </div>
 </template>
 
@@ -14,6 +15,7 @@ export default {
   computed: {
     ...mapGetters([
       'getCharacterWithJob',
+      'getPlayerNation',
     ]),
   },
   components: {

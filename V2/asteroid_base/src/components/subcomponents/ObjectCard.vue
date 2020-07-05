@@ -10,6 +10,14 @@
       <p v-else>
         Mass: {{ object.characteristics.mass.toPrecision(2) }} kg
       </p>
+      <p>
+        resources:
+        <ul>
+          <li v-for="resource in object.resources" :key="resource.name">
+            {{ resource.name + resource.mass.toPrecision(2) }}
+          </li>
+        </ul>
+      </p>
       <router-link :to="{
         name: 'objectview',
         params: {systemId: object.systemId, objectId: object.id, objectName: object.name }

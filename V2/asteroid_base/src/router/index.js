@@ -10,23 +10,23 @@ const routes = [
     path: '/',
     name: 'Home',
     component: Home,
-  },
-  {
+  }, {
     path: '/about',
     name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About'),
-  },
-  {
+    component: () => import('../views/About'),
+  }, {
+    path: '/new',
+    name: 'Newgame',
+    component: () => import('../views/Newgame'),
+  }, {
     path: '/game',
     component: () => import('../views/Game'),
     children: [
       {
-        name: 'mainmenu',
-        path: '',
-        component: () => import('../components/MainMenu'),
+        name: 'starmap',
+        path: 'starmap',
+        component: () => import('../components/StarMapView'),
+        meta: { requiresState: true },
       }, {
         name: 'system',
         path: 'system',
@@ -54,10 +54,6 @@ const routes = [
         path: 'object',
         component: () => import('../components/ObjectView'),
         meta: { requiresState: true },
-      }, {
-        name: 'newgame',
-        path: 'newgame',
-        component: () => import('../components/NewGame'),
       },
     ],
   },
@@ -73,7 +69,7 @@ router.beforeEach((to, from, next) => {
   if (to.matched.some((record) => record.meta.requiresState)) {
     if (store.state.systems.all.length === 0) {
       next({
-        name: 'mainmenu',
+        name: 'Home',
       });
     } else {
       next();
