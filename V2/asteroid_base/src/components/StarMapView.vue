@@ -4,10 +4,10 @@
     <div v-for="system in systems"
     :key="system.id"
     v-bind:style="{
-      left: system.starMapCoordinates.x  + 'px' , top: system.starMapCoordinates.y  + 'px'
+      left: system.coordinates.x  + 'px' , top: system.coordinates.y  + 'px'
     }">
-      {{ system.name }}
-      {{ system.starMapCoordinates }}
+      <p>{{ system.name }}</p>
+      <p>{{ system.systemsAddedV }}</p>
     </div>
   </section>
 </template>
