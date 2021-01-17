@@ -41,7 +41,6 @@ class System extends GameObject {
 
     for (let i = 0; i < li.length; i += 1) {
       if (checkCollision(li[i].coordinates.x, li[i].coordinates.y, colRad, ob.x, ob.y, colRad)) {
-        debugger;
         return true; // object is near
       }
     }

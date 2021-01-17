@@ -44,7 +44,7 @@ export default {
     return {
       formPage: 1,
       maxPage: 3,
-      // temp data with default values
+      // temp data with default values as example
       ruler: {
         firstName: 'James',
         lastName: 'Reikaard',

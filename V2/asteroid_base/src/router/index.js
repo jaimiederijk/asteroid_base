@@ -54,6 +54,11 @@ const routes = [
         path: 'object',
         component: () => import('../components/ObjectView'),
         meta: { requiresState: true },
+      }, {
+        name: 'shipyard',
+        path: 'shipyard',
+        component: () => import('../components/ShipyardView'),
+        meta: { requiresState: true },
       },
     ],
   },

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="500px" height="250px" viewBox="0 0 500 250" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 55.1 (78136) - https://sketchapp.com -->
+    <title>fronthull-slope</title>
+    <desc>Created with Sketch.</desc>
+    <g id="fronthull-slope" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="front-hull-slope" transform="translate(0.000000, 50.000000)">
+            <rect id="Rectangle" stroke="#FFFFFF" stroke-width="3" fill="#FFFFFF" x="1.5" y="1.5" width="122" height="7"></rect>
+            <path d="M126.5,2.20733072 L126.5,8.97274404 L354.850328,97.5 L367.138054,97.5 L126.5,2.20733072 Z" id="Rectangle" stroke="#FFFFFF" stroke-width="3" fill="#FFFFFF"></path>
+            <path d="M0,101 L375,101" id="Line" stroke="#FFFFFF" stroke-width="4"></path>
+            <g id="Group-5" transform="translate(18.000000, 159.000000)">
+                <path d="M2.5,7.5 L122.5,7.5" id="Line-3" stroke="#979797" stroke-linecap="square"></path>
+                <path d="M2.5,11.5 L122.5,11.5" id="Line-4" stroke="#979797" stroke-linecap="square"></path>
+                <path d="M2.5,15.5 L122.5,15.5" id="Line-5" stroke="#979797" stroke-linecap="square"></path>
+                <rect id="Rectangle" stroke="#FFFFFF" stroke-width="3" x="1.5" y="1.5" width="122" height="20" rx="8"></rect>
+            </g>
+            <g id="Group-5" transform="translate(18.000000, 120.000000)">
+                <path d="M2.5,7.5 L122.5,7.5" id="Line-3" stroke="#979797" stroke-linecap="square"></path>
+                <path d="M2.5,11.5 L122.5,11.5" id="Line-4" stroke="#979797" stroke-linecap="square"></path>
+                <path d="M2.5,15.5 L122.5,15.5" id="Line-5" stroke="#979797" stroke-linecap="square"></path>
+                <rect id="Rectangle" stroke="#FFFFFF" stroke-width="3" x="1.5" y="1.5" width="122" height="20" rx="8"></rect>
+            </g>
+            <rect id="Rectangle" stroke="#FFFFFF" stroke-width="3" fill="#FFFFFF" transform="translate(370.000000, 150.000000) rotate(90.000000) translate(-370.000000, -150.000000) " x="321.5" y="146.5" width="97" height="7"></rect>
+            <path d="M125,5 L125,101" id="Line-8" stroke="#FFFFFF" stroke-width="4" stroke-linecap="square"></path>
+            <path d="M125,5 L234,101" id="Line-8" stroke="#FFFFFF" stroke-width="4"></path>
+            <ellipse id="Oval" stroke="#FFFFFF" cx="304" cy="93" rx="12" ry="3"></ellipse>
+            <ellipse id="Oval" stroke="#FFFFFF" cx="270" cy="93" rx="12" ry="3"></ellipse>
+            <path d="M378.5,127.788257 C388.717268,127.788257 397,128.016652 397,127.788257 C397,117.570989 388.500971,113.301761 378.283703,113.301761 C368.066436,113.301761 360,117.570989 360,127.788257 C360,128.016652 368.282732,127.788257 378.5,127.788257 Z" id="Oval" stroke="#FFFFFF" stroke-width="6" transform="translate(378.500000, 120.595763) rotate(90.000000) translate(-378.500000, -120.595763) "></path>
+            <path d="M378.5,185.788257 C388.717268,185.788257 397,186.016652 397,185.788257 C397,175.570989 388.500971,171.301761 378.283703,171.301761 C368.066436,171.301761 360,175.570989 360,185.788257 C360,186.016652 368.282732,185.788257 378.5,185.788257 Z" id="Oval" stroke="#FFFFFF" stroke-width="6" transform="translate(378.500000, 178.595763) rotate(90.000000) translate(-378.500000, -178.595763) "></path>
+        </g>
+    </g>
+</svg>

@@ -1,10 +1,11 @@
 <template>
   <div id="gamepage">
     <nav id="game-nav">
-      <router-link :to="{ name: 'Home' }">Menu</router-link>
-      <router-link :to="{ name: 'starmap' }">Starmap</router-link>
-      <router-link :to="{ name: 'system' }">System</router-link>
-      <router-link :to="{ name: 'goverment' }">Goverment</router-link>
+      <router-link v-for="link in links" :key="link.name" :to="{ name: link.link }">
+        <div class="">
+          {{ link.name }}
+        </div>
+      </router-link>
       <router-link v-if="view.objectView.id"
         :to="{ name: 'object', params: {} }">
         {{ view.objectView.name }}
@@ -41,6 +42,28 @@ export default {
       'getCurrentDate',
     ]),
   },
+  data() {
+    return {
+      links: [
+        {
+          name: 'Menu',
+          link: 'Home',
+        }, {
+          name: 'Starmap',
+          link: 'starmap',
+        }, {
+          name: 'System',
+          link: 'system',
+        }, {
+          name: 'Goverment',
+          link: 'goverment',
+        }, {
+          name: 'Shipyard',
+          link: 'shipyard',
+        },
+      ],
+    };
+  },
   methods: {
     ...mapActions([
       'progressTime',
@@ -57,19 +80,53 @@ export default {
   #game-nav {
     display: flex;
     align-items: center;
-    background-color: grey;
+    background-color: black;
     a, h2 {
       display: block;
     }
     a {
-      padding: 1rem;
-      background-color: red;
+      // padding: 1rem;
+      background-color: black;
+      border: solid white 3px;
+      color: white;
+      padding: 4px 0;
+      margin: 1rem;
+      border-radius: 2px 50px 2px 2px;
+      text-decoration: none;
+      div {
+        background-color: black;
+        width: 100%;
+        // position: relative;
+        padding: 4px 20px;
+        margin: 4px 0px;
+        margin-left: -20px;
+        // outline: solid black 2px;
+        font-size: 2em;
+      }
+      &:hover {
+        border-color: grey;
+      }
     }
     h2 {
       padding-left: 1rem;
     }
     .router-link-exact-active {
-      background-color: green;
+      border: solid darkgrey 3px;
+      // border-radius: 2px 2px 2px 2px;
+      div {
+        &::after {
+          content: "<";
+          position: absolute;
+          margin-left: 10px;
+          color: orange;
+        }
+        &::before {
+          content: ">";
+          position: absolute;
+          margin-left: -30px;
+          color: orange;
+        }
+      }
     }
   }
   #timebar {
