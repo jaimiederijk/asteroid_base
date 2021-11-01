@@ -1,6 +1,13 @@
 <template lang="html">
   <div class="ship_design_blueprint">
-    <h3>{{ design.name }}</h3>
+    <h3 v-if="!designToEdit">{{ design.name }}</h3>
+    <input v-if="designToEdit" type="text"
+      :id="'name' + design.id"
+      :value="design.name"
+      @change="updateDesignMetaData"
+      :data-id="design.id"
+      data-metatype="name"
+    >
     <table>
       <tr v-for="n in design.gridSize.y" :key="n">
         <td
@@ -17,12 +24,13 @@
 </template>
 
 <script>
-import ShipDesignBlueprintComponent from '@/components/subcomponents/ShipDesignBlueprintComponent';
+import ShipDesignBlueprintComponent from './ShipDesignBlueprintComponent';
 
 export default {
   name: 'ShipDesignBlueprint.vue',
   props: {
     design: {},
+    designToEdit: {},
   },
   data() {
     return {
@@ -45,6 +53,9 @@ export default {
     selectThisSection(component) {
       this.selectedComponent = component.id;
       this.$emit('selectBlueprintSection', component);
+    },
+    updateDesignMetaData(e) {
+      this.$emit('updateDesignMetaData', e);
     },
   },
   components: {
@@ -104,12 +115,23 @@ export default {
     td {
       padding: 0;
       position: relative;
-      z-index: 99;
+      z-index: 91;
       white-space: nowrap;
       &:hover {
         background-color: rgba(230,230,230,0.5);
       }
     }
+  }
+  input {
+    position: relative;
+    z-index: 99;
+    display: block;
+    padding: 0.5rem;
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 1.1em;
+    outline: solid white 1px;
   }
   .active {
     outline: solid red 1px;

@@ -68,7 +68,6 @@ export default {
   ul {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
-    justify-items: center;
     align-items: center;
     li {
       height: 164px;

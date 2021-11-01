@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="500px" height="250px" viewBox="0 0 500 250" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 55.1 (78136) - https://sketchapp.com -->
+    <title>innerhull-sensors</title>
+    <desc>Created with Sketch.</desc>
+    <g id="innerhull-sensors" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="innerhull3-sensor" transform="translate(0.000000, 18.000000)" stroke="#FFFFFF">
+            <rect id="Rectangle" stroke-width="3" fill="#FFFFFF" x="1.5" y="127.5" width="497" height="7"></rect>
+            <rect id="Rectangle" stroke-width="2" x="134" y="92" width="24" height="8" rx="4"></rect>
+            <rect id="Rectangle" stroke-width="2" x="134" y="8" width="24" height="8" rx="4"></rect>
+            <g id="Group-9" transform="translate(143.000000, 11.000000)">
+                <ellipse id="Oval" stroke-width="2" cx="42.5" cy="43" rx="42.5" ry="43"></ellipse>
+                <ellipse id="Oval" stroke-width="2" cx="42.5" cy="43" rx="31.627907" ry="32"></ellipse>
+                <ellipse id="Oval" stroke-width="2" cx="42.5" cy="43" rx="8.89534884" ry="9"></ellipse>
+                <path d="M42.5,34 L42.5,0" id="Line-9" stroke-linecap="square"></path>
+                <path d="M42.5,86 L42.5,52" id="Line-9" stroke-linecap="square"></path>
+                <path d="M68.1976744,59.8023256 L68.1976744,26.1976744" id="Line-9" stroke-linecap="square" transform="translate(68.197674, 43.000000) rotate(90.000000) translate(-68.197674, -43.000000) "></path>
+                <path d="M16.8023256,59.8023256 L16.8023256,26.1976744" id="Line-9" stroke-linecap="square" transform="translate(16.802326, 43.000000) rotate(90.000000) translate(-16.802326, -43.000000) "></path>
+            </g>
+            <g id="Group-9" transform="translate(272.000000, 11.000000)">
+                <circle id="Oval" stroke-width="2" cx="18" cy="18" r="18"></circle>
+                <circle id="Oval" stroke-width="2" cx="18" cy="18" r="10"></circle>
+                <circle id="Oval" stroke-width="2" cx="18" cy="18" r="4"></circle>
+                <path d="M18,14 L18,0" id="Line-9" stroke-linecap="square"></path>
+                <path d="M18,36 L18,22" id="Line-9" stroke-linecap="square"></path>
+                <path d="M28.5,25 L28.5,11" id="Line-9" stroke-linecap="square" transform="translate(28.500000, 18.000000) rotate(90.000000) translate(-28.500000, -18.000000) "></path>
+                <path d="M7.5,25 L7.5,11" id="Line-9" stroke-linecap="square" transform="translate(7.500000, 18.000000) rotate(90.000000) translate(-7.500000, -18.000000) "></path>
+            </g>
+            <g id="Group-9" transform="translate(272.000000, 61.000000)">
+                <circle id="Oval" stroke-width="2" cx="18" cy="18" r="18"></circle>
+                <circle id="Oval" stroke-width="2" cx="18" cy="18" r="10"></circle>
+                <circle id="Oval" stroke-width="2" cx="18" cy="18" r="4"></circle>
+                <path d="M18,14 L18,0" id="Line-9" stroke-linecap="square"></path>
+                <path d="M18,36 L18,22" id="Line-9" stroke-linecap="square"></path>
+                <path d="M28.5,25 L28.5,11" id="Line-9" stroke-linecap="square" transform="translate(28.500000, 18.000000) rotate(90.000000) translate(-28.500000, -18.000000) "></path>
+                <path d="M7.5,25 L7.5,11" id="Line-9" stroke-linecap="square" transform="translate(7.500000, 18.000000) rotate(90.000000) translate(-7.500000, -18.000000) "></path>
+            </g>
+            <rect id="Rectangle" stroke-width="4" x="129" y="2" width="245" height="104"></rect>
+            <circle id="Oval" stroke-width="5" cx="247" cy="22" r="5"></circle>
+            <circle id="Oval" stroke-width="5" cx="247" cy="46" r="5"></circle>
+            <circle id="Oval" stroke-width="5" cx="247" cy="91" r="5"></circle>
+            <rect id="Rectangle" x="31.5" y="0.5" width="29" height="107"></rect>
+            <rect id="Rectangle" x="80.5" y="0.5" width="29" height="107"></rect>
+            <rect id="Rectangle" stroke-width="3" x="396.5" y="1.5" width="82" height="39" rx="8"></rect>
+            <rect id="Rectangle" stroke-width="3" x="396.5" y="63.5" width="82" height="39" rx="8"></rect>
+        </g>
+    </g>
+</svg>

@@ -31,7 +31,7 @@
             v-bind:design="design"
             @selectBlueprintSection="selectBlueprintSection"
           />
-          <DesignComponentSelector v-bind:selectedBlueprintSection="designSelection"/>
+          <ShipDesignComponentSelector v-bind:selectedBlueprintSection="designSelection"/>
         </div>
       </li>
     </ul>
@@ -40,8 +40,8 @@
 
 <script>
 import { mapActions, mapState, mapGetters } from 'vuex';
-import ShipDesignBlueprint from '@/components/subcomponents/ShipDesignBlueprint';
-import DesignComponentSelector from '@/components/subcomponents/DesignComponentSelector';
+import ShipDesignBlueprint from './ShipDesignBlueprint';
+import ShipDesignComponentSelector from './ShipDesignComponentSelector';
 
 export default {
   name: 'ShipDesigner',
@@ -76,7 +76,7 @@ export default {
   },
   components: {
     ShipDesignBlueprint,
-    DesignComponentSelector,
+    ShipDesignComponentSelector,
   },
 };
 </script>

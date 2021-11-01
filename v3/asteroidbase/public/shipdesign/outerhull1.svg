@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="500px" height="250px" viewBox="0 0 500 250" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 55.1 (78136) - https://sketchapp.com -->
+    <title>outerhull1</title>
+    <desc>Created with Sketch.</desc>
+    <g id="outerhull1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="outer-hull" transform="translate(0.000000, 34.000000)">
+            <rect id="Rectangle" stroke="#FFFFFF" stroke-width="3" fill="#FFFFFF" x="1.5" y="17.5" width="497" height="7"></rect>
+            <path d="M0,117 L500,117" id="Line" stroke="#FFFFFF" stroke-width="4"></path>
+            <rect id="Rectangle" stroke="#FFFFFF" stroke-width="2" x="51" y="41" width="160" height="61" rx="8"></rect>
+            <g id="Group-2" transform="translate(21.000000, 135.000000)" stroke="#FFFFFF">
+                <rect id="Rectangle" stroke-width="2" x="1" y="1" width="160" height="70" rx="8"></rect>
+                <path d="M51.5,55 L111,55" id="Line-7" stroke-linecap="square"></path>
+                <path d="M50.5,18.5 L110,18.5" id="Line-6" stroke-linecap="square"></path>
+                <ellipse id="Oval" stroke-width="6" cx="36" cy="37" rx="20" ry="23"></ellipse>
+                <ellipse id="Oval" stroke-width="6" cx="126" cy="37" rx="20" ry="23"></ellipse>
+                <rect id="Rectangle" stroke-width="2" x="148" y="32" width="5" height="10"></rect>
+                <rect id="Rectangle" stroke-width="2" x="9" y="32" width="5" height="10"></rect>
+            </g>
+            <g id="Group" transform="translate(68.000000, 60.000000)">
+                <path d="M2.5,7.5 L122.5,7.5" id="Line-3" stroke="#979797" stroke-linecap="square"></path>
+                <path d="M2.5,11.5 L122.5,11.5" id="Line-4" stroke="#979797" stroke-linecap="square"></path>
+                <path d="M2.5,15.5 L122.5,15.5" id="Line-5" stroke="#979797" stroke-linecap="square"></path>
+                <rect id="Rectangle" stroke="#FFFFFF" stroke-width="3" x="1.5" y="1.5" width="122" height="20" rx="8"></rect>
+            </g>
+            <polygon id="Triangle" stroke="#FFFFFF" stroke-width="5" points="158 0 260 21 56 21"></polygon>
+            <polygon id="Triangle" stroke="#FFFFFF" stroke-width="2" points="215.186714 2.11765537 215.08017 10.1176554 175.186714 2.82893736"></polygon>
+            <rect id="Rectangle" stroke="#FFFFFF" x="215.5" y="3.5" width="140" height="6"></rect>
+            <g id="Group-3" transform="translate(297.000000, 40.000000)" stroke="#FFFFFF">
+                <rect id="Rectangle" stroke-width="5" x="17.5" y="11.5" width="127" height="6" rx="3"></rect>
+                <rect id="Rectangle" stroke-width="5" x="17.5" y="44.5" width="127" height="6" rx="3"></rect>
+                <rect id="Rectangle" stroke-width="2" x="6" y="10" width="6" height="42"></rect>
+                <rect id="Rectangle" stroke-width="2" x="150" y="10" width="6" height="42"></rect>
+                <rect id="Rectangle" stroke-width="5" x="17.5" y="27.5" width="127" height="6" rx="3"></rect>
+                <rect id="Rectangle" stroke-width="2" x="1" y="1" width="160" height="61" rx="8"></rect>
+            </g>
+            <g id="Group-3" transform="translate(267.000000, 140.000000)" stroke="#FFFFFF">
+                <rect id="Rectangle" stroke-width="5" x="17.5" y="11.5" width="127" height="6" rx="3"></rect>
+                <rect id="Rectangle" stroke-width="5" x="17.5" y="44.5" width="127" height="6" rx="3"></rect>
+                <rect id="Rectangle" stroke-width="2" x="6" y="10" width="6" height="42"></rect>
+                <rect id="Rectangle" stroke-width="2" x="150" y="10" width="6" height="42"></rect>
+                <rect id="Rectangle" stroke-width="5" x="17.5" y="27.5" width="127" height="6" rx="3"></rect>
+                <rect id="Rectangle" stroke-width="2" x="1" y="1" width="160" height="61" rx="8"></rect>
+            </g>
+        </g>
+    </g>
+</svg>

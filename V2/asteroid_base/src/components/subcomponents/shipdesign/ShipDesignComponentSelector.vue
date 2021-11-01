@@ -19,7 +19,7 @@
 
 <script>
 export default {
-  name: 'DesignComponentSelector',
+  name: 'ShipDesignComponentSelector',
   props: {
     selectedBlueprintSection: {
       type: Object,
@@ -32,9 +32,13 @@ export default {
   },
   methods: {
     selectComponent(component) {
-      const newComponent = this.selectedBlueprintSection;
-      newComponent.componentId = component.id;
-      return this.$store.dispatch('setComponent', newComponent);
+      if (this.selectedBlueprintSection.id.length > 5) {
+        const newComponent = this.selectedBlueprintSection;
+        newComponent.componentId = component.id;
+        return this.$store.dispatch('setComponent', newComponent);
+      }
+      console.log('nopes');
+      return null;
     },
   },
 };
@@ -43,6 +47,9 @@ export default {
 <style lang="scss" scoped>
   h3 {
     color: red;
+  }
+  .components_list {
+    overflow-y: scroll;
   }
   button {
     display: flex;
