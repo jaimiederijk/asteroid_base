@@ -1,3 +1,4 @@
+// old delete
 import { v4 as uuidv4 } from 'uuid';
 import GameObject from './gameobject';
 import CelestialObject from './celestialobject';
@@ -79,7 +80,7 @@ class System extends GameObject {
   }
 
   addRandomStar() {
-    const chosenObject = this.constructor.getRandomObjectOffType(objectTypes.stars);
+    const chosenObject = this.constructor.getRandomObjectOffType(objectTypes.stars.subTypes);
     chosenObject.className = objectTypes.stars.className;
     chosenObject.shortName = objectTypes.stars.shortName;
     const star = new CelestialObject(chosenObject);
@@ -87,7 +88,7 @@ class System extends GameObject {
   }
 
   addRandomCelestialObject() {
-    const chosenObject = this.constructor.getRandomObjectOffType(objectTypes.celestialObjects);
+    const chosenObject = this.constructor.getRandomObjectOffType(objectTypes.celestialObjects.subTypes);
     this.addCelestialObject(chosenObject);
   }
 

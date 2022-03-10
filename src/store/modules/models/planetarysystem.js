@@ -4,10 +4,12 @@ import objectTypes from './objecttypes';
 
 class PlanetarySystem extends GameObject {
   constructor(id, coordinates, settings) {
-    super('planetary system', id, 'SYS');
+    super('planetary system', id, 'SYS', 'PlanetarySystem');
     this.settings = settings;
     this.inSectorCoordinates = coordinates;
-    this.systemObjects = [];
+    this.systemObjectsData = {};
+    this.systemObjectsList = [];
+    this.systemCenter = {};
     this.populate();
   }
 
@@ -19,6 +21,7 @@ class PlanetarySystem extends GameObject {
       this.addRandomCelestialObject();
     }
 
+    this.settings.systemSize = objectTypes.system.size;
     this.addRandomStar();
   }
 
@@ -26,19 +29,22 @@ class PlanetarySystem extends GameObject {
     const chosenObject = objectTypes.getRandomObjectOffType('stars');
     chosenObject.className = objectTypes.stars.className;
     chosenObject.shortName = objectTypes.stars.shortName;
-    const star = new CelestialObject(chosenObject);
-
-    this.systemObjects.push(star);
+    const newObject = new CelestialObject(chosenObject);
+    this.systemCenter = { color: newObject.color, ids: [newObject.id] };
+    this.addCelestialObject(newObject);
   }
 
   addRandomCelestialObject() {
-    const chosenObject = objectTypes.getRandomObjectOffType('celestialObjects');
-    this.addCelestialObject(chosenObject);
+    const chosenObjectShortName = objectTypes.getRandomObjectFromList(objectTypes.weightedCOList);
+    const chosenObject = objectTypes.celestialObjects.subTypes.find(
+      (subtype) => subtype.shortName === chosenObjectShortName,
+    );
+    this.addCelestialObject(new CelestialObject(chosenObject));
   }
 
-  addCelestialObject(objecttype) {
-    const newObject = new CelestialObject(objecttype);
-    this.systemObjects.push(newObject);
+  addCelestialObject(newObject) {
+    this.systemObjectsData[newObject.id] = newObject;
+    this.systemObjectsList.push(newObject.id);
   }
 }
 

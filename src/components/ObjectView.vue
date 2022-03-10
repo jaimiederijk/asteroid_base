@@ -1,3 +1,4 @@
+// deprecated
 <template lang="html">
   <div>
     <p>{{ obj.name }}</p>

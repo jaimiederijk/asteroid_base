@@ -3,7 +3,7 @@ import GameObject from './gameobject';
 
 class ManMadeObject extends GameObject {
   constructor(objectType) {
-    super(objectType.className, uuidv4(), objectType.shortName);
+    super(objectType.className, uuidv4(), objectType.shortName, 'ManMadeObject');
   }
 }
 

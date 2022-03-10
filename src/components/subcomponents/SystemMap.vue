@@ -1,20 +1,27 @@
 <template>
-  <div class="system-map">
-    <h3>{{ system.name }}</h3>
-
+  <div class="system-map" :class="viewMode">
+    <div>
+      <h3>{{ system.data.name }}</h3>
+      <button v-on:click="changeMapMode">change mode</button>
+    </div>
     <ul>
-      <li v-for="object in system.systemObjects"
-      :key="object.name" class="system-object">
+      <li v-for="id in system.data.systemObjectsList"
+        :key="id" class="system-object" :style="{
+          top: (system.objectData[id].inSystemCoordinates.y/system.data.settings.systemSize)
+          * windowWidth - 82 + 'px',
+          left: (system.objectData[id].inSystemCoordinates.x/system.data.settings.systemSize)
+          * windowWidth - 82 + 'px',
+      }">
         <button
-          v-on:click="$emit('changeActiveObject',object, system.id)"
+          v-on:click="$emit('changeActiveObjectCard',system.objectData[id], system.id)"
           name="button"
-          v-bind:class="[object.color, object.type]"
+          v-bind:class="[system.objectData[id].color, system.objectData[id].type]"
         >
           <div class="cel-obj-name">
-            <span>{{ object.name }}
+            <span>{{ system.objectData[id].name }}
 
               <div class="cel-obj-info">
-                <p v-for="resource in object.resources"
+                <p v-for="resource in system.objectData[id].resources"
                   :key="resource.name">
                   {{ resource.name }}
                 </p>
@@ -30,8 +37,23 @@
 </template>
 
 <script>
+import { useWindowSize } from 'vue-window-size';
+
 export default {
   name: 'SystemMap',
+  data() {
+    return {
+      viewMode: 'list',
+      mapWidth: 1000,
+    };
+  },
+  setup() {
+    const { width, height } = useWindowSize();
+    return {
+      windowWidth: width,
+      windowHeight: height,
+    };
+  },
   props: {
     system: {
       type: Object,
@@ -41,6 +63,9 @@ export default {
     },
   },
   methods: {
+    changeMapMode() {
+      this.viewMode = (this.viewMode === 'orbits' ? 'list' : 'orbits');
+    },
   },
   mounted() {
   },
@@ -51,15 +76,37 @@ export default {
 <style lang="scss" scoped>
   .system-map {
     padding-top: 100px;
+    > div {
+      margin: 0 1rem;
+      height: 50px;
+      display: flex;
+      justify-content: space-between;
+    }
   }
   ul {
-    padding: 0%;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(164px, 1fr));
-    align-items: center;
-    li {
-      height: 164px;
-      width: 164px;
+    padding: 0 1rem 0 0;
+    overflow: hidden;
+  }
+  .list {
+    ul {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(164px, 1fr));
+      align-items: center;
+      li {
+        height: 164px;
+        width: 164px;
+      }
+    }
+  }
+  .orbits {
+    ul {
+      height: calc(100vh - 150px);
+      width: 100vw;
+      margin: 0;
+      padding: 0;
+      li {
+        position: absolute;
+      }
     }
   }
   .system-object {
@@ -127,5 +174,7 @@ export default {
       }
     }
   }
-
+  button {
+    z-index: 88;
+  }
 </style>

@@ -4,8 +4,8 @@ import objectTypes from './objecttypes';
 
 class CelestialObject extends GameObject {
   constructor(objectType) {
-    super(objectType.className, uuidv4(), objectType.shortName);
-    this.systemCoordinates = this.resolveSystemCoordinates();
+    super(objectType.className, uuidv4(), objectType.shortName, 'CelestialObject');
+    this.inSystemCoordinates = this.resolveSystemCoordinates();
     this.color = objectType.color;
     this.shortName = objectType.shortName;
     // console.log(GameObject.getRandomInt(powmin, powmax));

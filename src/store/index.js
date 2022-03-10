@@ -12,6 +12,9 @@ export default createStore({
   state: {
   },
   mutations: {
+    changeName(state, object) {
+      object.newName('lee');
+    },
   },
   actions: {
     // reset gamestate in all neccesery modules
@@ -23,6 +26,9 @@ export default createStore({
       if (!state.view.paused) {
         dispatch('progressTime');
       }
+    },
+    changeName({ commit }, object) {
+      commit('changeName', object);
     },
   },
   modules: {

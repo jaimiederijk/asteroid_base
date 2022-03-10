@@ -6,9 +6,14 @@ import PlanetarySystem from './planetarysystem';
 
 class StarMap extends GameObject {
   constructor(settings, id) {
-    super('starmap', id, 'MAP');
+    super('starmap', id, 'MAP', 'StarMap');
     this.settings = settings;
     this.systems = [];
+    this.systemsList = [];// notnec
+    this.systemsData = {};
+    this.sectorsList = [];
+    this.sectorsData = {};
+    this.systemObjectsData = {};
     this.sectors = this.populateSectors();
   }
 
@@ -54,7 +59,11 @@ class StarMap extends GameObject {
   populateSectors() {
     console.log('pop sector');
     const sectors = [];
-    const systems = [];
+    const sectorsList = [];
+    const sectorsData = {};
+    const systemsList = [];
+    const systemsData = {};
+    const systemObjectsData = {};
     const sectorsGridSize = Math.sqrt(this.settings.sectorAmount);
     const { sectorSize } = this.settings;
     const { distributeOverArea } = this.constructor;
@@ -62,13 +71,17 @@ class StarMap extends GameObject {
 
     const createSystems = (systemIds, settings) => {
       const systemsInSector = [];
+      const systemsInSectorById = {};
       const coordinatesPile = distributeOverArea(sectorSize, systemIds.length);
       for (let i = 0; i < systemIds.length; i += 1) {
         const system = new PlanetarySystem(systemIds[i], coordinatesPile.pop(), settings);
-        systemsInSector.push(system);
+        Object.assign(systemObjectsData, system.systemObjectsData);
+        delete system.systemObjectsData;
+        systemsInSector.push(system); // should become system.id
+        systemsInSectorById[system.id] = system;
       }
-
-      systems.push(...systemsInSector);
+      Object.assign(systemsData, systemsInSectorById);
+      systemsList.push(...systemsInSector);
     };
 
     const createSector = (x, y, density) => {
@@ -91,11 +104,18 @@ class StarMap extends GameObject {
 
     for (let y = 0; y < sectorsGridSize; y += 1) {
       for (let x = 0; x < sectorsGridSize; x += 1) {
-        sectors.push(createSector(x, y, this.settings.density));
+        const sector = createSector(x, y, this.settings.density);
+        sectors.push(sector);
+        sectorsList.push(sector.id);
+        sectorsData[sector.id] = sector;
       }
     }
 
-    this.systems.push(...systems);
+    this.systemObjectsData = { ...this.systemObjectsData, ...systemObjectsData };
+    this.systemsData = { ...this.systemsData, ...systemsData };
+    this.systems.push(...systemsList);// remov
+    this.sectorsList.push(...sectorsList);
+    this.sectorsData = { ...this.sectorsData, ...sectorsData };
 
     return sectors;
   }

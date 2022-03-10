@@ -35,7 +35,7 @@ const routes = [
         component: () => import('../components/GovermentView'),
         meta: { requiresState: true },
       }, {
-        name: 'objectview',
+        name: 'objectview', // deprecated
         path: 'objectview/:systemId/:objectId',
         beforeEnter: (to, from, next) => {
           const payload = {

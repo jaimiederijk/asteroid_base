@@ -3,16 +3,20 @@ import starMap from './models/starmap';
 const getDefaultState = () => ({
   id: '',
   name: '',
-  sectors: [],
+  sectors: [], // dep
   settings: {},
   shortName: '',
-  systems: [],
+  systems: [], // dep
+  sectorsList: [],
+  sectorsData: {},
+  systemsData: {},
+  systemsObjectsData: {},
   type: '',
 });
 
 const actions = {
   createStarMap({ commit, rootState }) {
-    console.log('creatmpa');
+    console.log('creatmap');
     commit('createStarMap', rootState.settings);
   },
 };
@@ -30,7 +34,7 @@ const mutations = {
 
 const getters = {
   getPlanetarySystemById: (state) => (id) => (
-    state.systems.find((system) => system.id === id)
+    state.systemsData[id]
   ),
 };
 

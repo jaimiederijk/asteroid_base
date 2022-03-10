@@ -1,7 +1,7 @@
 <template>
   <section>
       <nav class="shipyard">
-        <UIBar v-bind:uielements="ui" @changeView="changeView"/>
+        <SubNavBar v-bind:uielements="ui" @changeView="changeView"/>
       </nav>
       <Blueprints v-if="view==='Blueprints'"/>
   </section>
@@ -9,7 +9,7 @@
 
 <script>
 import { mapActions } from 'vuex';
-import UIBar from '@/components/subcomponents/UIBar';
+import SubNavBar from '@/components/subcomponents/common/SubNavBar';
 import Blueprints from '@/components/subcomponents/shipdesign/Blueprints';
 
 export default {
@@ -41,7 +41,7 @@ export default {
   },
   components: {
     Blueprints,
-    UIBar,
+    SubNavBar,
   },
 };
 </script>

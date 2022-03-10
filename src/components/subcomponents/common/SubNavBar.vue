@@ -15,7 +15,7 @@
 
 <script>
 export default {
-  name: 'UIBar',
+  name: 'SubNavBar',
   props: {
     uielements: {
       type: Array,

@@ -1,6 +1,6 @@
 // world generator
 // adds system to world json
-//
+// old delete
 
 import { v4 as uuidv4 } from 'uuid';
 

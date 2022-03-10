@@ -1,25 +1,25 @@
 <template>
   <div>
     <SystemMap
-      v-bind:system="getPlanetarySystemById(view.currentView)"
-      v-on:changeActiveObject="changeActiveObject"
+      v-bind:system="combinedSystemInfo"
+      v-on:changeActiveObjectCard="changeActiveObjectCard"
     />
     <ObjectCard
-      v-bind:object="objectActive"
+      v-bind:activeObject="activeObjectCard"
     />
   </div>
 </template>
 
 <script>
 import { mapState, mapActions, mapGetters } from 'vuex';
-import ObjectCard from '@/components/subcomponents/ObjectCard';
+import ObjectCard from '@/components/subcomponents/common/ObjectCard';
 import SystemMap from '@/components/subcomponents/SystemMap';
 
 export default {
   name: 'SystemView',
   data() {
     return {
-      objectActive: {},
+      activeObjectCard: {},
     };
   },
   props: {
@@ -34,14 +34,29 @@ export default {
     ...mapGetters([
       'getPlanetarySystemById',
     ]),
+    combinedSystemInfo() {
+      const currentSystem = {
+        data: this.map.systemsData[this.view.currentView],
+        objectData: {},
+      }; // new object to be filled
+
+      const { systemObjectsList } = this.map.systemsData[this.view.currentView];
+      const { systemObjectsData } = this.map; // object that I want to extract from
+
+      systemObjectsList.forEach((id) => {
+        currentSystem.objectData[id] = systemObjectsData[id];
+      });
+
+      return currentSystem;
+    },
   },
   methods: {
     ...mapActions([
       'changeSystemView',
     ]),
-    changeActiveObject(obj, systemId) {
-      this.objectActive = obj;
-      this.objectActive.systemId = systemId;
+    changeActiveObjectCard(obj, systemId) {
+      this.activeObjectCard = obj;
+      this.activeObjectCard.systemId = systemId;
     },
   },
   components: {

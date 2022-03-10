@@ -6,6 +6,12 @@ const objectTypes = {
 
     return chosenObject;
   },
+  getRandomObjectFromList: function getRandomObjectFromList(list) {
+    const randomNumber = Math.floor(Math.random() * 100);
+    const chosenObject = list[randomNumber];
+
+    return chosenObject;
+  },
   system: {
     size: 20000,
   },
@@ -16,7 +22,8 @@ const objectTypes = {
         shortName: 'COM',
         color: 'greyblue',
         characteristics: {
-          massRange: [1, 10, 13, 14],
+          occurence: 10, // out of 100
+          massRange: [1, 10, 13, 14], // a , b = kg c, d = to the power of
           sizeRange: [10, 100],
           possibleResources: ['water', 'metal'],
           makeuptype: ['stony', 'carbonaceous', 'metallic'],
@@ -25,27 +32,40 @@ const objectTypes = {
         className: 'meteoroid',
         shortName: 'MET',
         color: 'lightgrey',
-        sizeRange: [1, 10],
         characteristics: {
-          massRange: [1, 10, 13, 14],
+          occurence: 1,
+          massRange: [1, 10, 0, 3],
+          sizeRange: [1, 1],
           possibleResources: ['metal', 'rock'],
         },
       }, {
         className: 'asteroid',
         shortName: 'AST',
         color: 'grey',
-        sizeRange: [10, 100],
         characteristics: {
+          occurence: 50,
           massRange: [1, 10, 13, 14],
+          sizeRange: [10, 100],
           possibleResources: ['metal', 'rock'],
         },
       }, {
         className: 'dwarf planet',
         shortName: 'DWA',
         color: 'grey',
-        sizeRange: [100, 500],
         characteristics: {
+          occurence: 30,
+          massRange: [1, 10, 20, 22],
+          sizeRange: [100, 500],
+          possibleResources: ['metal', 'rock'],
+        },
+      }, {
+        className: 'gas giant',
+        shortName: 'GG',
+        color: 'brown',
+        characteristics: {
+          occurence: 9,
           massRange: [1, 10, 13, 14],
+          sizeRange: [1000, 5000],
           possibleResources: ['metal', 'rock'],
         },
       },
@@ -59,8 +79,8 @@ const objectTypes = {
         className: 'O Class',
         color: 'blue',
         characteristics: {
-          massRange: [16, 30, 13, 14],
-          possibleResources: ['metal', 'rock'],
+          massRange: [16, 30],
+          possibleResources: [],
           temperature: 32000,
           size: 6.6,
         },
@@ -68,8 +88,8 @@ const objectTypes = {
         className: 'B Class',
         color: 'bluewhite',
         characteristics: {
-          massRange: [2.1, 16, 13, 14],
-          possibleResources: ['metal', 'rock'],
+          massRange: [2.1, 16],
+          possibleResources: [],
           temperature: 15000,
           size: 4.0,
         },
@@ -77,8 +97,8 @@ const objectTypes = {
         className: 'A Class',
         color: 'white',
         characteristics: {
-          massRange: [1.4, 2.1, 13, 14],
-          possibleResources: ['metal', 'rock'],
+          massRange: [1.4, 2.1],
+          possibleResources: [],
           temperature: 8500,
           size: 1.6,
         },
@@ -86,8 +106,8 @@ const objectTypes = {
         className: 'F Class',
         color: 'yellowwhite',
         characteristics: {
-          massRange: [1.04, 1.4, 13, 14],
-          possibleResources: ['metal', 'rock'],
+          massRange: [1.04, 1.4],
+          possibleResources: [],
           temperature: 7000,
           size: 1.3,
         },
@@ -95,8 +115,8 @@ const objectTypes = {
         className: 'G Class',
         color: 'yellow',
         characteristics: {
-          massRange: [0.45, 1.04, 13, 14],
-          possibleResources: ['metal', 'rock'],
+          massRange: [0.8, 1.04],
+          possibleResources: [],
           temperature: 5500,
           size: 1,
         },
@@ -104,18 +124,17 @@ const objectTypes = {
         className: 'K Class',
         color: 'lightorange',
         characteristics: {
-          massRange: [0.08, 0.45, 13, 14],
-          possibleResources: ['metal', 'rock'],
+          massRange: [0.45, 0.8],
+          possibleResources: [],
           temperature: 4500,
           size: 0.85,
         },
-
       }, {
         className: 'M Class',
         color: 'orangered',
         characteristics: {
-          massRange: [1, 10, 13, 14],
-          possibleResources: ['metal', 'rock'],
+          massRange: [0.08, 0.45],
+          possibleResources: [],
           temperature: 3200,
           size: 0.5,
         },
@@ -183,6 +202,16 @@ const objectTypes = {
         density: 0,
       },
     ],
+  },
+  get weightedCOList() {
+    const newList = [];
+
+    this.celestialObjects.subTypes.forEach((element) => {
+      for (let index = 0; index < element.characteristics.occurence; index += 1) {
+        newList.push(element.shortName);
+      }
+    });
+    return newList;
   },
 };
 

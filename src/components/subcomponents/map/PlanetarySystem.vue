@@ -1,7 +1,7 @@
 <template lang="html">
   <button class="planetarysystem" type="button" name="button"
     v-on:click="selectPlanetarySystem(system.id)"
-    :class="star.color"
+    :class="system.systemCenter.color"
     :style="{
       top: (system.inSectorCoordinates.y/settings.sectorSize.height)
         * (graphicalSettings.sectorWidth * 2) + 'px',
@@ -40,9 +40,6 @@ export default {
     },
   },
   computed: {
-    star() {
-      return this.system.systemObjects.find((system) => system.type === 'star');
-    },
   },
   methods: {
     ...mapActions([

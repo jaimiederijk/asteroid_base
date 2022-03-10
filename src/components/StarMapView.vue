@@ -9,16 +9,18 @@
         width: mapWidth - 25  + 'px'
       }" :class="{ zoomed: zoomedToSector }">
       <li
-        v-for="(sector, index) in map.sectors" :key="sector.id"
-        @click="zoomToSector($event, sector.coordinates.col, sector.coordinates.row)">
+        v-for="(sector, index) in map.sectorsList" :key="sector"
+        @click="zoomToSector(
+          $event, map.sectorsData[sector].coordinates.col, map.sectorsData[sector].coordinates.row
+        )">
         <span v-show="index < map.settings.sectorAmountRoot">
-          {{ sector.coordinates.col }}
+          {{ map.sectorsData[sector].coordinates.col }}
         </span>
         <span v-show="graphicalSettings.startOfRow.includes(index)">
-          {{ sector.coordinates.row }}
+          {{ map.sectorsData[sector].coordinates.row }}
         </span>
-        <PlanetarySystem v-for="system in sector.systems" :key="system"
-        v-bind:system="getPlanetarySystemById(system)"
+        <PlanetarySystem v-for="system in map.sectorsData[sector].systems" :key="system"
+        v-bind:system="map.systemsData[system]"
           :settings="map.settings" :graphicalSettings="graphicalSettings"/>
       </li>
     </ul>

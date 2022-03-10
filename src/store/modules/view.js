@@ -1,6 +1,6 @@
 const getDefaultState = () => ({
   currentView: '',
-  objectView: {},
+  objectView: '',
   currentGameTime: 0,
   paused: true,
 });
@@ -9,9 +9,9 @@ const actions = {
   changeSystemView({ commit }, systemId) {
     commit('changeSystemView', systemId);
   },
-  changeObjectView({ commit }, object) {
-    commit('changeObjectView', object);
-  },
+  // changeObjectView({ commit }, objectId) {
+  //   commit('changeObjectView', objectId);
+  // },
   progressCurrentGameTime({ commit }) {
     return new Promise((resolve) => {
       commit('incrementCurrentGameTime');
@@ -30,11 +30,9 @@ const mutations = {
   changeSystemView(state, systemId) {
     state.currentView = systemId;
   },
-  changeObjectView(state, object) {
-    state.objectView.systemId = object.systemId;
-    state.objectView.id = object.objectId;
-    state.objectView.name = object.objectName;
-  },
+  // changeObjectView(state, objectId) {
+  //   state.objectView = objectId;
+  // },
   incrementCurrentGameTime(state) {
     state.currentGameTime += 1;
   },

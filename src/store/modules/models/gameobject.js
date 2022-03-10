@@ -1,9 +1,11 @@
 class GameObject {
-  constructor(type, id, shortName) {
+  constructor(type, id, shortName, objectClass) {
     this.id = id;
     this.type = type;
+    this.objectClass = objectClass;
     this.shortName = shortName;
     this.name = this.makeName();
+    this.interactionOptions = [];
   }
 
   makeName() {
@@ -24,6 +26,10 @@ class GameObject {
       result += characters.charAt(Math.floor(Math.random() * charactersLength));
     }
     return result;
+  }
+
+  set newName(newname) {
+    this.name = newname;
   }
 
   static getRandomNumber(min, max, precision) {
@@ -50,14 +56,13 @@ class GameObject {
     }
     return false; // object is not near anything
   }
+  // static getRandomObjectOffType(objectList) {
+  //   const objectTypesAmount = objectList.length;
+  //   const objectTypeIndex = Math.floor(Math.random() * objectTypesAmount);
+  //   const chosenObject = objectList[objectTypeIndex];
 
-  static getRandomObjectOffType(objectList) {
-    const objectTypesAmount = objectList.subTypes.length;
-    const objectTypeIndex = Math.floor(Math.random() * objectTypesAmount);
-    const chosenObject = objectList.subTypes[objectTypeIndex];
-
-    return chosenObject;
-  }
+  //   return chosenObject;
+  // }
 }
 
 export { GameObject as default };
