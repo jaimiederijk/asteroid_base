@@ -3,19 +3,27 @@
     v-on:click="selectPlanetarySystem(system.id)"
     :class="system.systemCenter.color"
     :style="{
-      top: (system.inSectorCoordinates.y/settings.sectorSize.height)
-        * (graphicalSettings.sectorWidth * 2) + 'px',
+      top: system.style.top + 'px',
       left: (system.inSectorCoordinates.x/settings.sectorSize.width)
         * graphicalSettings.sectorWidth + 'px',
       width: graphicalSettings.sectorWidth * 0.05 + 'px',
       height: graphicalSettings.sectorWidth * 0.05 + 'px'
     }">
     <span>{{ system.name }}</span>
+    <!-- <div v-if="system.linkList.length > 0" :style="{
+      top: -system.style.top + 'px',
+      left: -system.style.left + 'px',
+    }">
+      <Line  v-for="linkId in system.linkList" :key="linkId"
+      v-bind:target="system.linkSystemData[linkId]" :origin="system"
+      :graphicalSettings="graphicalSettings"/>
+    </div> -->
   </button>
 </template>
 
 <script>
 import { mapActions } from 'vuex';
+// import Line from '@/components/subcomponents/map/Line';
 
 export default {
   name: 'PlanetarySystem',
@@ -50,6 +58,9 @@ export default {
       this.$router.push({ name: 'system' });
     },
   },
+  components: {
+    // Line,
+  },
 };
 </script>
 
@@ -58,6 +69,7 @@ export default {
     position: absolute;
     padding: 0;
     border: none;
+    z-index: 14;
     // width: 0.5vw;
     // height: auto;
     border-radius: 1rem;
@@ -81,6 +93,11 @@ export default {
         border-bottom: dashed 2px white;
         transform: rotate(-45deg);
       }
+    }
+    div {
+      position: absolute;
+      z-index: 13;
+      pointer-events: none;
     }
     &:hover {
       outline: dashed 2px white;

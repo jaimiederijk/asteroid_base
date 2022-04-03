@@ -3,14 +3,12 @@ import starMap from './models/starmap';
 const getDefaultState = () => ({
   id: '',
   name: '',
-  sectors: [], // dep
   settings: {},
   shortName: '',
-  systems: [], // dep
   sectorsList: [],
   sectorsData: {},
   systemsData: {},
-  systemsObjectsData: {},
+  systemObjectsData: {},
   type: '',
 });
 
@@ -23,8 +21,6 @@ const actions = {
 
 const mutations = {
   createStarMap(state, settings) {
-    // state.all.push(...systemGenerator.generateStarMap(settings));
-    // state.map = starMap.generateStarMap(settings);
     Object.assign(state, starMap.generateStarMap(settings));
   },
   resetState(state) {

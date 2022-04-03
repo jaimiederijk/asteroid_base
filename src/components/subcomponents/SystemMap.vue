@@ -77,8 +77,12 @@ export default {
   .system-map {
     padding-top: 100px;
     > div {
-      margin: 0 1rem;
+      h3 {
+        margin: 0 1rem;
+      }
+      position: absolute;
       height: 50px;
+      width: 100%;
       display: flex;
       justify-content: space-between;
     }
@@ -100,10 +104,11 @@ export default {
   }
   .orbits {
     ul {
-      height: calc(100vh - 150px);
-      width: 100vw;
+      height: 100vw; // calc(100vh - 150px);
+      width: 100%;
       margin: 0;
       padding: 0;
+      position: relative;
       li {
         position: absolute;
       }

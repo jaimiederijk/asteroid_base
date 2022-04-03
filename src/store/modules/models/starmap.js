@@ -8,13 +8,18 @@ class StarMap extends GameObject {
   constructor(settings, id) {
     super('starmap', id, 'MAP', 'StarMap');
     this.settings = settings;
-    this.systems = [];
-    this.systemsList = [];// notnec
+    this.systemsList = [];
     this.systemsData = {};
     this.sectorsList = [];
     this.sectorsData = {};
     this.systemObjectsData = {};
-    this.sectors = this.populateSectors();
+
+    this.init();
+  }
+
+  init() {
+    this.populateSectors();
+    this.createSectorLinks();
   }
 
   static distributeOverArea(bounds, amount) {
@@ -57,8 +62,6 @@ class StarMap extends GameObject {
   // create sector put it in array
   //  sector contains (id, array with systems that are in sector, gridcordinates
   populateSectors() {
-    console.log('pop sector');
-    const sectors = [];
     const sectorsList = [];
     const sectorsData = {};
     const systemsList = [];
@@ -67,21 +70,52 @@ class StarMap extends GameObject {
     const sectorsGridSize = Math.sqrt(this.settings.sectorAmount);
     const { sectorSize } = this.settings;
     const { distributeOverArea } = this.constructor;
-    console.log(sectorsGridSize);
 
-    const createSystems = (systemIds, settings) => {
-      const systemsInSector = [];
+    const createSystems = (systemIds, settings, sectorId) => {
       const systemsInSectorById = {};
       const coordinatesPile = distributeOverArea(sectorSize, systemIds.length);
       for (let i = 0; i < systemIds.length; i += 1) {
-        const system = new PlanetarySystem(systemIds[i], coordinatesPile.pop(), settings);
+        const system = new PlanetarySystem(systemIds[i], coordinatesPile.pop(), settings, sectorId);
+        // pull systemobjects out and add to large list with all objects
         Object.assign(systemObjectsData, system.systemObjectsData);
         delete system.systemObjectsData;
-        systemsInSector.push(system); // should become system.id
+        systemsList.push(system.id);
         systemsInSectorById[system.id] = system;
       }
       Object.assign(systemsData, systemsInSectorById);
-      systemsList.push(...systemsInSector);
+    };
+
+    const createInternalLinks = (systems) => {
+      const internalSystemLinks = [];
+
+      systems.forEach((aId) => {
+        systems.forEach((bId) => {
+          if (!(aId === bId)) { // aid is not same as bid
+            const arr = [aId, bId].sort();
+            if (internalSystemLinks.length === 0) {
+              internalSystemLinks.push(arr);
+            } else {
+              let dupFound = true;
+              // find duplicates
+              for (let index = 0; index < internalSystemLinks.length; index += 1) {
+                const element = internalSystemLinks[index];
+                if (element.every((e) => arr.includes(e))) {
+                  dupFound = true;
+                  break;
+                } else {
+                  dupFound = false;
+                }
+              }
+              if (!dupFound) {
+                internalSystemLinks.push(arr);
+              }
+            }
+          }
+        });
+      });
+
+      internalSystemLinks.sort(); // makes it easier to check manualy
+      return internalSystemLinks;
     };
 
     const createSector = (x, y, density) => {
@@ -91,13 +125,16 @@ class StarMap extends GameObject {
         id: uuidv4(),
         systems: [],
         coordinates: { col: x, row: y },
+        internalSystemLinks: [],
       };
       // populate sector with systems
       for (let j = 0; j < systemAmount; j += 1) {
         sector.systems.push(uuidv4());
       }
 
-      createSystems(sector.systems, this.settings);
+      sector.internalSystemLinks = createInternalLinks(sector.systems);
+
+      createSystems(sector.systems, this.settings, sector.id);
 
       return sector;
     };
@@ -105,7 +142,6 @@ class StarMap extends GameObject {
     for (let y = 0; y < sectorsGridSize; y += 1) {
       for (let x = 0; x < sectorsGridSize; x += 1) {
         const sector = createSector(x, y, this.settings.density);
-        sectors.push(sector);
         sectorsList.push(sector.id);
         sectorsData[sector.id] = sector;
       }
@@ -113,11 +149,129 @@ class StarMap extends GameObject {
 
     this.systemObjectsData = { ...this.systemObjectsData, ...systemObjectsData };
     this.systemsData = { ...this.systemsData, ...systemsData };
-    this.systems.push(...systemsList);// remov
     this.sectorsList.push(...sectorsList);
+    this.systemsList.push(...systemsList);
     this.sectorsData = { ...this.sectorsData, ...sectorsData };
+  }
 
-    return sectors;
+  // create connection between two sectors by finding two specific planatary systems in diffrent
+  // sectors and linking them
+  createSectorLinks() {
+    const sectorAmountRoot = this.settings.sectorAmountRoot - 1;
+
+    const findSuitableSystem = (direction, systems) => {
+      let suitableSystem = this.systemsData[systems[0]];
+
+      function compare(system, operator, oldsystem) {
+        switch (operator) {
+          case '>': return system > oldsystem;
+          case '<': return system < oldsystem;
+          default: return false;
+        }
+      }
+
+      systems.forEach((systemId) => {
+        if (compare(
+          this.systemsData[systemId].inSectorCoordinates[direction.rowOrCol],
+          direction.comparison,
+          suitableSystem.inSectorCoordinates[direction.rowOrCol],
+        )) {
+          suitableSystem = this.systemsData[systemId];
+        }
+      });
+
+      return suitableSystem;
+    };
+
+    const findSector = (sectorCoordinates) => (
+      this.sectorsList.find((sectorId) => (
+        this.sectorsData[sectorId].coordinates.row === sectorCoordinates.row
+        && this.sectorsData[sectorId].coordinates.col === sectorCoordinates.col
+      ))
+    );
+
+    const addLinks = (oSysId, neighSysId, direction) => { // (ownSystemId, neighbourSystemId)
+      const linkData = { ...this.systemsData[neighSysId] };
+      linkData.direction = direction;
+      this.systemsData[oSysId].linkList.push(neighSysId);
+      this.systemsData[oSysId].linkSystemData[neighSysId] = linkData;
+    };
+
+    // find conection for each direction
+    this.sectorsList.forEach((sectorId) => {
+      const sectorData = this.sectorsData[sectorId];
+      let neighbour = '';
+      let ownSuitableSystem = '';
+      let neighbourSuitableSystem = '';
+      // left
+      if (sectorData.coordinates.col > 0) {
+        neighbour = findSector({
+          col: (sectorData.coordinates.col - 1), // -1 for neighbour
+          row: sectorData.coordinates.row,
+        });
+        ownSuitableSystem = findSuitableSystem({
+          rowOrCol: 'x',
+          comparison: '<', // smallest x coordinates
+        }, sectorData.systems);
+        neighbourSuitableSystem = findSuitableSystem({
+          rowOrCol: 'x',
+          comparison: '>',
+        }, this.sectorsData[neighbour].systems);
+
+        addLinks(ownSuitableSystem.id, neighbourSuitableSystem.id, 'left');
+      }
+      // right
+      if (sectorData.coordinates.col < sectorAmountRoot) {
+        neighbour = findSector({
+          col: (sectorData.coordinates.col + 1),
+          row: sectorData.coordinates.row,
+        });
+        ownSuitableSystem = findSuitableSystem({
+          rowOrCol: 'x',
+          comparison: '>',
+        }, sectorData.systems);
+        neighbourSuitableSystem = findSuitableSystem({
+          rowOrCol: 'x',
+          comparison: '<',
+        }, this.sectorsData[neighbour].systems);
+
+        addLinks(ownSuitableSystem.id, neighbourSuitableSystem.id, 'right');
+      }
+      // top
+      if (sectorData.coordinates.row > 0) {
+        neighbour = findSector({
+          col: sectorData.coordinates.col,
+          row: (sectorData.coordinates.row - 1),
+        });
+        ownSuitableSystem = findSuitableSystem({
+          rowOrCol: 'y',
+          comparison: '<',
+        }, sectorData.systems);
+        neighbourSuitableSystem = findSuitableSystem({
+          rowOrCol: 'y',
+          comparison: '>',
+        }, this.sectorsData[neighbour].systems);
+
+        addLinks(ownSuitableSystem.id, neighbourSuitableSystem.id, 'top');
+      }
+      // Bottom
+      if (sectorData.coordinates.row < sectorAmountRoot) {
+        neighbour = findSector({
+          col: sectorData.coordinates.col,
+          row: (sectorData.coordinates.row + 1),
+        });
+        ownSuitableSystem = findSuitableSystem({
+          rowOrCol: 'y',
+          comparison: '>',
+        }, sectorData.systems);
+        neighbourSuitableSystem = findSuitableSystem({
+          rowOrCol: 'y',
+          comparison: '<',
+        }, this.sectorsData[neighbour].systems);
+
+        addLinks(ownSuitableSystem.id, neighbourSuitableSystem.id, 'bottom');
+      }
+    });
   }
 }
 

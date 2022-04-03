@@ -5,15 +5,15 @@ import store from '../store/index';
 const routes = [
   {
     path: '/',
-    name: 'Home',
+    name: 'home',
     component: Home,
   }, {
     path: '/about',
-    name: 'About',
+    name: 'about',
     component: () => import('../views/About'),
   }, {
     path: '/new',
-    name: 'Newgame',
+    name: 'newgame',
     component: () => import('../views/Newgame'),
   }, {
     path: '/game',
@@ -68,9 +68,9 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   if (to.matched.some((record) => record.meta.requiresState)) {
-    if (store.state.map.systems.length === 0) {
+    if (store.state.map.sectorsList.length === 0) {
       next({
-        name: 'Home',
+        name: 'home',
       });
     } else {
       next();

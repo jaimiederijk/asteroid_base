@@ -1,13 +1,7 @@
 <template>
   <section id="starmap">
     <!-- <h2>starmap</h2> -->
-    <ul v-bind:style="{
-        gridTemplateColumns: 'repeat(' + map.settings.sectorAmountRoot + ','
-        + graphicalSettings.sectorWidth + 'px )',
-        gridTemplateRows: 'repeat(' + map.settings.sectorAmountRoot + ','
-        + graphicalSettings.sectorWidth * 2 + 'px )',
-        width: mapWidth - 25  + 'px'
-      }" :class="{ zoomed: zoomedToSector }">
+    <ul v-bind:style="stylingCalc.grid" :class="{ zoomed: zoomedToSector }">
       <li
         v-for="(sector, index) in map.sectorsList" :key="sector"
         @click="zoomToSector(
@@ -19,9 +13,24 @@
         <span v-show="graphicalSettings.startOfRow.includes(index)">
           {{ map.sectorsData[sector].coordinates.row }}
         </span>
-        <PlanetarySystem v-for="system in map.sectorsData[sector].systems" :key="system"
-        v-bind:system="map.systemsData[system]"
-          :settings="map.settings" :graphicalSettings="graphicalSettings"/>
+        <div v-for="system in map.sectorsData[sector].systems" :key="system">
+          <PlanetarySystem
+            v-bind:system="planetarySystemData[system]"
+            :settings="map.settings"
+            :graphicalSettings="graphicalSettings"/>
+          <div v-if="planetarySystemData[system].linkList.length > 0">
+            <Line  v-for="linkId in planetarySystemData[system].linkList" :key="linkId"
+            v-bind:target="planetarySystemData[system].linkSystemData[linkId]"
+            :origin="planetarySystemData[system]"
+            :graphicalSettings="graphicalSettings"/>
+          </div>
+        </div>
+        <div v-for="(link, index) in map.sectorsData[sector].internalSystemLinks" :key="index">
+          <InternalLink
+            v-bind:target="planetarySystemData[link[0]]"
+            :origin="planetarySystemData[link[1]]"
+            :graphicalSettings="graphicalSettings"/>
+        </div>
       </li>
     </ul>
     <button v-if="zoomedToSector" @click="zoomOut" type="button" name="button">zoom out</button>
@@ -32,6 +41,8 @@
 import { mapState, mapGetters } from 'vuex';
 import { useWindowSize } from 'vue-window-size';
 import PlanetarySystem from '@/components/subcomponents/map/PlanetarySystem';
+import Line from '@/components/subcomponents/map/Line';
+import InternalLink from '@/components/subcomponents/map/InternalLink';
 
 export default {
   name: 'StarMapView.vue',
@@ -71,6 +82,44 @@ export default {
         sectorWidth,
       };
     },
+    stylingCalc() {
+      const grid = {
+        gridTemplateColumns: `repeat( ${this.map.settings.sectorAmountRoot}, ${this.graphicalSettings.sectorWidth}px )`,
+        gridTemplateRows: `repeat( ${this.map.settings.sectorAmountRoot}, ${this.graphicalSettings.sectorWidth * 2}px )`,
+        width: `${this.mapWidth - 25}px`,
+      };
+
+      return {
+        grid,
+      };
+    },
+    // create one object for Pla.System with calculated styling and linkedsytem info
+    planetarySystemData() {
+      const planetarySystemData = { ...this.map.systemsData };
+      const { settings } = this.map;
+      const { graphicalSettings } = this;
+
+      this.map.systemsList.forEach((id) => {
+        // add position styling
+        planetarySystemData[id].style = {
+          top: (planetarySystemData[id].inSectorCoordinates.y / settings.sectorSize.height)
+        * (graphicalSettings.sectorWidth * 2),
+          left: (planetarySystemData[id].inSectorCoordinates.x / settings.sectorSize.width)
+        * graphicalSettings.sectorWidth,
+          width: graphicalSettings.sectorWidth * 0.05,
+          height: graphicalSettings.sectorWidth * 0.05,
+        };
+      });
+      // loop again to apply style to linksystem
+      this.map.systemsList.forEach((id) => {
+        planetarySystemData[id].linkList.forEach((linkId) => {
+          planetarySystemData[id].linkSystemData[linkId].style = {
+            ...planetarySystemData[linkId].style,
+          };
+        });
+      });
+      return planetarySystemData;
+    },
   },
   methods: {
     zoomToSector(event, x, y) {
@@ -98,6 +147,8 @@ export default {
   },
   components: {
     PlanetarySystem,
+    Line,
+    InternalLink,
   },
 };
 </script>

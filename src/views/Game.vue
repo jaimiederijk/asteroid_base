@@ -47,7 +47,7 @@ export default {
       links: [
         {
           name: 'Menu',
-          link: 'Home',
+          link: 'home',
         }, {
           name: 'Starmap',
           link: 'starmap',

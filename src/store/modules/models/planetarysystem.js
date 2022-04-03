@@ -3,13 +3,16 @@ import CelestialObject from './celestialobject';
 import objectTypes from './objecttypes';
 
 class PlanetarySystem extends GameObject {
-  constructor(id, coordinates, settings) {
+  constructor(id, coordinates, settings, sectorId) {
     super('planetary system', id, 'SYS', 'PlanetarySystem');
     this.settings = settings;
+    this.sectorId = sectorId;
     this.inSectorCoordinates = coordinates;
     this.systemObjectsData = {};
     this.systemObjectsList = [];
     this.systemCenter = {};
+    this.linkList = [];
+    this.linkSystemData = {};
     this.populate();
   }
 
