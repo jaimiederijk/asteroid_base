@@ -1,8 +1,9 @@
 <template>
-  <section>
-      <nav class="shipyard">
+  <section id="shipyard">
+      <!-- <nav class="shipyard"> -->
         <SubNavBar v-bind:uielements="ui" @changeView="changeView"/>
-      </nav>
+      <!-- </nav> -->
+      <Yard v-if="view==='Yard'"/>
       <Blueprints v-if="view==='Blueprints'"/>
   </section>
 </template>
@@ -10,13 +11,14 @@
 <script>
 import { mapActions } from 'vuex';
 import SubNavBar from '@/components/subcomponents/common/SubNavBar';
+import Yard from '@/components/subcomponents/shipdesign/Yard';
 import Blueprints from '@/components/subcomponents/shipdesign/Blueprints';
 
 export default {
   name: 'ShipyardView',
   data() {
     return {
-      view: 'Shipyard',
+      view: 'Yard',
       ui: [
         {
           name: 'Yard',
@@ -40,6 +42,7 @@ export default {
     },
   },
   components: {
+    Yard,
     Blueprints,
     SubNavBar,
   },
@@ -47,7 +50,9 @@ export default {
 </script>
 
 <style lang="css" scoped>
-  section {
+  #shipyard {
     padding-top: 100px;
+    width: 100%;
+    min-height: calc(100vh - 100px);
   }
 </style>

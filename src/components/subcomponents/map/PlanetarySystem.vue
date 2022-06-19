@@ -1,7 +1,7 @@
 <template lang="html">
   <button class="planetarysystem" type="button" name="button"
     v-on:click="selectPlanetarySystem(system.id)"
-    :class="system.systemCenter.color"
+    :class="[system.systemCenter.color, system.type]"
     :style="{
       top: system.style.top + 'px',
       left: (system.inSectorCoordinates.x/settings.sectorSize.width)
@@ -94,11 +94,11 @@ export default {
         transform: rotate(-45deg);
       }
     }
-    div {
-      position: absolute;
-      z-index: 13;
-      pointer-events: none;
-    }
+    // div {
+    //   position: absolute;
+    //   z-index: 13;
+    //   pointer-events: none;
+    // }
     &:hover {
       outline: dashed 2px white;
       outline-offset: 15px;

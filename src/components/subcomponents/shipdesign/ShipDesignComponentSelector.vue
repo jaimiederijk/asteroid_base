@@ -1,8 +1,8 @@
 <template lang="html">
-  <div class="">
-    <h3>selected component</h3>
-    <p>{{ selectedBlueprintSection.componentId }}</p>
-    <span>{{ selectedBlueprintSection.placement }}</span>
+  <div class="component-selector">
+    <!-- <h3>selected component</h3> -->
+    <!-- <p>{{ selectedBlueprintSection.componentId }}</p> -->
+    <!-- <span>{{ selectedBlueprintSection.placement }}</span> -->
     <h3>Component list</h3>
     <ul class="components_list">
       <li v-for="component in components.small" :key="component.id">
@@ -46,10 +46,21 @@ export default {
 
 <style lang="scss" scoped>
   h3 {
-    color: red;
+    color: $color_text;
   }
   .components_list {
     overflow-y: scroll;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    width: 100%;
+    li {
+      width: 30%;
+      margin-bottom: 0.5rem;
+    }
+  }
+  .component-selector {
+    width: 50%;
   }
   button {
     display: flex;
@@ -59,7 +70,8 @@ export default {
       text-align: left;
       border: solid white 1px;
       * {
-        padding: 0 1rem;
+        margin: 0.2rem;
+        padding: 0 0.2rem;
       }
     }
     img {

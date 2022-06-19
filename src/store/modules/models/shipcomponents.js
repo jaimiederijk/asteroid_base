@@ -1,37 +1,53 @@
 const components = {
   small: [
     {
-      id: 'gun-mount-top-small-1',
-      name: 'Turret mount top',
-      img: 'gun-mount-top-small-1.svg',
+      id: 'top_front',
+      name: 'Top front',
+      img: 'top_front.svg',
     }, {
-      id: 'missile-launcher-top',
-      name: 'Missile launcher top',
-      img: 'missile-launcher-top.svg',
+      id: 'top_command',
+      name: 'top command',
+      img: 'top_command.svg',
     }, {
-      id: 'fronthull-middle-stepback',
-      name: 'fronthull stepback',
-      img: 'fronthull-middle-stepback.svg',
+      id: 'top_engine',
+      name: 'top engine',
+      img: 'top_engine.svg',
     }, {
-      id: 'fronthull-slope',
-      name: 'fronthull slope',
-      img: 'fronthull-slope.svg',
+      id: 'top_genneric1',
+      name: 'top genneric1',
+      img: 'top_genneric1.svg',
     }, {
-      id: 'innerhull1',
-      name: 'innerhull1',
-      img: 'innerhull1.svg',
+      id: 'top_singlegunturret',
+      name: 'top singlegunturret',
+      img: 'top_singlegunturret.svg',
     }, {
-      id: 'innerhull2',
-      name: 'innerhull2',
-      img: 'innerhull2.svg',
+      id: 'top_turretmount',
+      name: 'top turretmount',
+      img: 'top_turretmount.svg',
     }, {
-      id: 'outerhull1',
-      name: 'outerhull1',
-      img: 'outerhull1.svg',
+      id: 'bottom_front',
+      name: 'bottom front',
+      img: 'bottom_front.svg',
     }, {
-      id: 'innerhull-sensors',
-      name: 'innerhull-sensors',
-      img: 'innerhull-sensors.svg',
+      id: 'bottom_genneric1',
+      name: 'bottom genneric1',
+      img: 'bottom_genneric1.svg',
+    }, {
+      id: 'bottom_singlegunturret',
+      name: 'bottom singlegunturret',
+      img: 'bottom_singlegunturret.svg',
+    }, {
+      id: 'bottom_turretmount',
+      name: 'bottom turretmount',
+      img: 'bottom_turretmount.svg',
+    }, {
+      id: 'bottom_cargo',
+      name: 'bottom cargo',
+      img: 'bottom_cargo.svg',
+    }, {
+      id: 'bottom_engine',
+      name: 'bottom engine',
+      img: 'bottom_engine.svg',
     },
   ],
 };

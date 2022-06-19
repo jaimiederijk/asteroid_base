@@ -281,7 +281,7 @@ const starMap = {
     function validateSettings() {
       const validatedSettings = settings;
       validatedSettings.sectorAmount = 100;
-      validatedSettings.density = 6;
+      validatedSettings.density = 4;
       validatedSettings.sectorSize = { width: 500, height: 1000 };
       validatedSettings.sectorAmountRoot = 100;
 

@@ -98,14 +98,14 @@ export default {
   }
   .ship_design_blueprint {
     h3 {
-      color: white;
+      color: $color_text;
       text-align: left;
       &:hover {
         color: red;
       }
     }
-    width: 50%;
-    background-color: blue;
+    width: 25%;
+    background-color: $color_blueprint;
     position: relative;
     padding: 0.5rem 2rem 2rem 2rem;
   }
@@ -129,7 +129,7 @@ export default {
     padding: 0.5rem;
     background: transparent;
     border: none;
-    color: white;
+    color: $color_text;
     font-size: 1.1em;
     outline: solid white 1px;
   }

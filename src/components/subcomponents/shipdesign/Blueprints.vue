@@ -21,7 +21,7 @@
             Edit
           </button>
           <button v-if="designToEdit" type="button" name="button" v-on:click="editDesign(false)">
-            Save design
+            Done
           </button>
           <ShipDesignComponentSelector
             v-if="designToEdit"
@@ -85,10 +85,21 @@ export default {
 };
 </script>
 
-<style lang="css" scoped>
+<style lang="scss" scoped>
+  ul {
+    padding: 0%;
+  }
   .ship-design-view {
     display: flex;
     flex-wrap: wrap;
-    align-items: flex-start;
+    align-items: stretch;
+    position: relative;
+    &> button {
+      height: 3rem;
+      position: absolute;
+      bottom: 0.5rem;
+      left: calc(25% + 5rem);
+      min-width: 4rem;
+    }
   }
 </style>

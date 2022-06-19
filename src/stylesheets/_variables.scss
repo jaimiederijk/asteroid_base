@@ -13,9 +13,22 @@ button {
   padding: 0.5rem;
 }
 
+.selected_arrow::before {
+  content: ">";
+  position: absolute;
+  margin-left: -100%;
+  color: orange;
+  height: 100%;
+  display: block;
+  top: 0;
+  width: 50%;
+}
+
 $line_color: rgba(244,244,244,0.5);
 $color_background: #fff;
 $color_lightbackground: #fff2ff;
+$color_blueprint: #0071BC;
+$color_text: #fff;
 
 // systemObjects
 $sys_color_blue: #097efb;

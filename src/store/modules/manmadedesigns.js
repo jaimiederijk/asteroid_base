@@ -31,6 +31,7 @@ const mutations = {
     state.all.find((design) => design.id === payload.id)[payload.metaType] = payload.value;
   },
   updateDesignComponent(state, newComponent) {
+    console.log('updades');
     state.all.find((design) => design.id === newComponent.parentId).componentGrid.find(
       (component) => component.id === newComponent.id,
     ).componentId = newComponent.componentId;

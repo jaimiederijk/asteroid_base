@@ -7,15 +7,29 @@
     <ul>
       <li v-for="id in system.data.systemObjectsList"
         :key="id" class="system-object" :style="{
-          top: (system.objectData[id].inSystemCoordinates.y/system.data.settings.systemSize)
-          * windowWidth - 82 + 'px',
-          left: (system.objectData[id].inSystemCoordinates.x/system.data.settings.systemSize)
-          * windowWidth - 82 + 'px',
-      }">
+          top: (mapCenter +
+          (system.objectData[id].orbit.inSystemCoordinates.y * relativeSize -25)) + 'px',
+          left: (mapCenter +
+          (system.objectData[id].orbit.inSystemCoordinates.x * relativeSize -25)) + 'px',
+        }">
+        <svg :height="windowWidth" :width="windowWidth" xmlns="http://www.w3.org/2000/svg"
+          :style="{
+            top: -(mapCenter +
+            (system.objectData[id].orbit.inSystemCoordinates.y * relativeSize -25)) + 'px',
+            left: -(mapCenter +
+            (system.objectData[id].orbit.inSystemCoordinates.x * relativeSize -25)) + 'px',
+          }">
+          <circle
+            :cx="mapCenter"
+            :cy="mapCenter"
+            :r="(system.objectData[id].orbit.radius * relativeSize)"
+            stroke="white" stroke-width="1" fill-opacity="0"/>
+        </svg>
         <button
-          v-on:click="$emit('changeActiveObjectCard',system.objectData[id], system.id)"
+          v-on:click="$emit('changeActiveObjectCard',system.objectData[id])"
           name="button"
-          v-bind:class="[system.objectData[id].color, system.objectData[id].type]"
+          v-bind:class="[system.objectData[id].color, system.objectData[id].type,
+            {selected_arrow: system.objectData[id].selected}]"
         >
           <div class="cel-obj-name">
             <span>{{ system.objectData[id].name }}
@@ -44,7 +58,6 @@ export default {
   data() {
     return {
       viewMode: 'list',
-      mapWidth: 1000,
     };
   },
   setup() {
@@ -60,6 +73,17 @@ export default {
       default() {
         return {};
       },
+    },
+  },
+  computed: {
+    relativeSize() {
+      const width = this.windowWidth;
+      // const sysOjbAmount = this.system.data.systemObjectsList.length - 1;
+      // const factor = (sysOjbAmount < 8) ? sysOjbAmount * 1.4 : sysOjbAmount * 1.4 * 2;
+      return width / this.system.data.systemSize;
+    },
+    mapCenter() {
+      return this.windowWidth / 2;
     },
   },
   methods: {
@@ -91,7 +115,13 @@ export default {
     padding: 0 1rem 0 0;
     overflow: hidden;
   }
+  svg {
+    position: absolute;
+  }
   .list {
+    svg {
+      display: none;
+    }
     ul {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(164px, 1fr));
@@ -99,6 +129,10 @@ export default {
       li {
         height: 164px;
         width: 164px;
+        justify-self: center;
+      }
+      button {
+        margin-top: 40%;
       }
     }
   }
@@ -123,7 +157,7 @@ export default {
       position: relative;
       width: 50px;
       height: 50px;
-      margin: 2rem;
+      // margin: 2rem;
       border-radius: 50%;
       border: none;
       .cel-obj-name {
@@ -147,6 +181,9 @@ export default {
             margin-top: 10px;
           }
         }
+      }
+      &::before {
+        font-size: 35px;
       }
       span {
         display: block;

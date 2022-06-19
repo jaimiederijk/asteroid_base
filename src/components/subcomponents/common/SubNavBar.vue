@@ -34,6 +34,7 @@ export default {
 
 <style lang="scss" scoped>
   nav {
+    position: fixed;
     display: flex;
   }
   button {

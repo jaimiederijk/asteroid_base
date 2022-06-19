@@ -45,6 +45,11 @@ export default {
 
       systemObjectsList.forEach((id) => {
         currentSystem.objectData[id] = systemObjectsData[id];
+        // if (currentSystem.objectData[id] === this.activeObjectCard.id) {
+        //   currentSystem.objectData[id].selected = true;
+        // } else {
+        //   currentSystem.objectData[id].selected = false;
+        // }
       });
 
       return currentSystem;
@@ -54,9 +59,16 @@ export default {
     ...mapActions([
       'changeSystemView',
     ]),
-    changeActiveObjectCard(obj, systemId) {
+    changeActiveObjectCard(obj) {
       this.activeObjectCard = obj;
-      this.activeObjectCard.systemId = systemId;
+      this.combinedSystemInfo.data.systemObjectsList.forEach((id) => {
+        // debugger;
+        if (id === this.activeObjectCard.id) {
+          this.combinedSystemInfo.objectData[id].selected = true;
+        } else {
+          this.combinedSystemInfo.objectData[id].selected = false;
+        }
+      });
     },
   },
   components: {
