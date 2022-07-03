@@ -1,7 +1,7 @@
 <template lang="html">
-  <div>
+  <div :class="editable ? 'editable' : ''">
     <!-- !!!!change this to take component.img -->
-    <img v-bind:src="'/shipdesign/' + design.componentId + '.svg'">
+    <img v-bind:src="design.img">
   </div>
 </template>
 
@@ -11,6 +11,12 @@ export default {
   props: {
     design: {},
     n: Number,
+    editMode: Boolean,
+  },
+  computed: {
+    editable() {
+      return this.editMode && this.design.editable;
+    },
   },
   methods: {
   },
@@ -18,6 +24,9 @@ export default {
 </script>
 
 <style lang="css" scoped>
+  .editable {
+    outline: dashed 2px white;
+  }
   p {
     color: white;
     font-size: 3em;

@@ -3,28 +3,28 @@
     <h2>Blueprints</h2>
     <button type="button" name="button" v-on:click="createNewDesign()">Add design</button>
     <ul>
-      <li v-for="design in designsSortedByCLass" :key="design.id">
-        <div class="ship-design-view" v-if="!designToEdit || designToEdit === design.id">
+      <li v-for="designId in designsList" :key="designId">
+        <div class="ship-design-view" v-if="!designToEdit || designToEdit === designId">
           <ShipDesignBlueprint
-            v-bind:design="design" :designToEdit="designToEdit"
+            v-bind:design="designsData[designId]" :designToEdit="designToEdit" :editMode="editMode"
             @selectBlueprintSection="selectBlueprintSection"
             @updateDesignMetaData="updateDesignMetaData"
           />
           <ShipDesignStats
-            v-bind:design="design" :designToEdit="designToEdit"
+            v-bind:design="designsData[designId]" :designToEdit="designToEdit"
             @updateDesignMetaData="updateDesignMetaData"
           />
           <button
-            v-if="!designToEdit" type="button" name="button"
-            v-on:click="editDesign(design.id)"
+            v-if="!editMode" type="button" name="button"
+            v-on:click="editDesign(designId)"
           >
             Edit
           </button>
-          <button v-if="designToEdit" type="button" name="button" v-on:click="editDesign(false)">
+          <button v-if="editMode" type="button" name="button" v-on:click="exitEdit()">
             Done
           </button>
           <ShipDesignComponentSelector
-            v-if="designToEdit"
+            v-if="editMode"
             v-bind:selectedBlueprintSection="designSelection"
           />
         </div>
@@ -44,29 +44,32 @@ export default {
   data() {
     return {
       designSelection: { componentId: 'non' },
-      designToEdit: false,
+      designToEdit: '',
+      editMode: false,
     };
   },
   computed: {
     ...mapState({
     }),
     ...mapGetters([
-      'designsSortedByCLass',
+      'designsList',
+      'designsData',
     ]),
-
   },
   methods: {
     createNewDesign() {
-      this.$store.dispatch('createNewDesign').then((id) => this.editNewDesign(id));
-    },
-    editNewDesign(id) {
-      this.designToEdit = id;
+      this.$store.dispatch('createNewDesign').then((id) => this.editDesign(id));
     },
     selectBlueprintSection(component) {
       this.designSelection = component;
     },
-    editDesign(design) {
-      this.designToEdit = design;
+    editDesign(designId) {
+      this.designToEdit = designId;
+      this.editMode = true;
+    },
+    exitEdit() {
+      this.designToEdit = '';
+      this.editMode = false;
     },
     updateDesignMetaData(e) {
       const payload = {

@@ -38,9 +38,9 @@ export default {
     display: flex;
   }
   button {
-    border: solid white 2px;
+    border: solid $color_border 2px;
     background-color: black;
-    color: white;
+    color: $color_text;
     padding: 0px 6px;
     margin: 5px 1rem;
     border-radius: 3px 3px;

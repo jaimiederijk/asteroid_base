@@ -32,8 +32,8 @@
             {selected_arrow: system.objectData[id].selected}]"
         >
           <div class="cel-obj-name">
-            <span>{{ system.objectData[id].name }}
-
+            <span>
+              {{ system.objectData[id].name }}
               <div class="cel-obj-info">
                 <p v-for="resource in system.objectData[id].resources"
                   :key="resource.name">
@@ -134,6 +134,10 @@ export default {
       button {
         margin-top: 40%;
       }
+      .cel-obj-name {
+        transform-origin: bottom left;
+        transform: rotateZ(45deg);
+      }
     }
   }
   .orbits {
@@ -142,9 +146,20 @@ export default {
       width: 100%;
       margin: 0;
       padding: 0;
+      transform-style: preserve-3d;
+      transform-origin: bottom left;
+      transform: rotateX(65deg);
       position: relative;
+      top: -55vw;
+      .selected_arrow::before {
+        transform: scaleY(1.7);
+      }
       li {
         position: absolute;
+        .cel-obj-name {
+          transform-origin: bottom left;
+          transform: scaleY(1.6) rotateZ(45deg) rotateX(0deg);
+        }
       }
     }
   }
@@ -167,8 +182,6 @@ export default {
         border-left: 2px solid white;
         bottom: 80%;
         left: 95%;
-        transform-origin: bottom left;
-        transform: rotateZ(45deg);
       }
       .cel-obj-info {
         color: white;

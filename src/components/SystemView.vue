@@ -5,7 +5,7 @@
       v-on:changeActiveObjectCard="changeActiveObjectCard"
     />
     <ObjectCard
-      v-bind:activeObject="activeObjectCard"
+      v-bind:object="objectCard"
     />
   </div>
 </template>
@@ -19,7 +19,7 @@ export default {
   name: 'SystemView',
   data() {
     return {
-      activeObjectCard: {},
+      selectedObject: {},
     };
   },
   props: {
@@ -45,14 +45,42 @@ export default {
 
       systemObjectsList.forEach((id) => {
         currentSystem.objectData[id] = systemObjectsData[id];
-        // if (currentSystem.objectData[id] === this.activeObjectCard.id) {
-        //   currentSystem.objectData[id].selected = true;
-        // } else {
-        //   currentSystem.objectData[id].selected = false;
-        // }
       });
 
       return currentSystem;
+    },
+    objectCard() {
+      if (!Object.hasOwnProperty.call(this.selectedObject, 'name')) {
+        return {};
+      }
+      function readyForDisplay(subjectInfo) { // change the backend to make this irrelevent
+        const info = [];
+        subjectInfo.forEach((data) => {
+          info.push({ name: data.name, data: data.mass });
+        });
+
+        return info;
+      }
+
+      const data = {
+        name: this.selectedObject.name,
+        nameAction: 'changeSystemObjectName',
+        id: this.selectedObject.id,
+        infoList: [
+          {
+            subject: 'Type',
+            info: this.selectedObject.type,
+          }, {
+            subject: 'Resources',
+            info: readyForDisplay(this.selectedObject.resources),
+          },
+        ],
+        actions: [
+
+        ],
+      };
+
+      return data;
     },
   },
   methods: {
@@ -60,10 +88,10 @@ export default {
       'changeSystemView',
     ]),
     changeActiveObjectCard(obj) {
-      this.activeObjectCard = obj;
+      this.selectedObject = obj;
       this.combinedSystemInfo.data.systemObjectsList.forEach((id) => {
         // debugger;
-        if (id === this.activeObjectCard.id) {
+        if (id === this.selectedObject.id) {
           this.combinedSystemInfo.objectData[id].selected = true;
         } else {
           this.combinedSystemInfo.objectData[id].selected = false;

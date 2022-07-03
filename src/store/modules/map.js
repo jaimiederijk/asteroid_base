@@ -8,14 +8,27 @@ const getDefaultState = () => ({
   sectorsList: [],
   sectorsData: {},
   systemsData: {},
+  systemsList: [],
   systemObjectsData: {},
   type: '',
 });
 
 const actions = {
-  createStarMap({ commit, rootState }) {
+  createStarMap({ dispatch, commit, rootState }) {
     console.log('creatmap');
-    commit('createStarMap', rootState.settings);
+    return dispatch('generateStarMap').then(() => {
+      commit('changeSystemView', rootState.map.systemsList[0]);
+      console.log('map done');
+    });
+  },
+  generateStarMap({ commit, rootState }) {
+    return new Promise((resolve) => {
+      commit('createStarMap', rootState.settings);
+      resolve();
+    });
+  },
+  changeSystemObjectName({ commit }, payload) {
+    commit('changeSystemObjectName', payload);
   },
 };
 
@@ -25,6 +38,9 @@ const mutations = {
   },
   resetState(state) {
     Object.assign(state, getDefaultState());
+  },
+  changeSystemObjectName(state, payload) {
+    state.systemObjectsData[payload.id].name = payload.name;
   },
 };
 

@@ -1,7 +1,7 @@
 <template lang="html">
   <div class="ship_design_blueprint">
-    <h3 v-if="!designToEdit">{{ design.name }}</h3>
-    <input v-if="designToEdit" type="text"
+    <h3 v-if="!editMode">{{ design.name }}</h3>
+    <input v-if="editMode" type="text"
       :id="'name' + design.id"
       :value="design.name"
       @change="updateDesignMetaData"
@@ -15,7 +15,7 @@
           v-for="component in rowComponents[n-1]" :key="component.id"
           v-on:click="selectThisSection(component)"
           >
-          <ShipDesignBlueprintComponent :design="component" :n="n"/>
+          <ShipDesignBlueprintComponent :design="component" :n="n" :editMode="editMode"/>
         </td>
       </tr>
     </table>
@@ -30,7 +30,8 @@ export default {
   name: 'ShipDesignBlueprint.vue',
   props: {
     design: {},
-    designToEdit: {},
+    designToEdit: String,
+    editMode: Boolean,
   },
   data() {
     return {
@@ -55,6 +56,7 @@ export default {
       this.$emit('selectBlueprintSection', component);
     },
     updateDesignMetaData(e) {
+      console.log('upd');
       this.$emit('updateDesignMetaData', e);
     },
   },

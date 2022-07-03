@@ -11,11 +11,12 @@
         data-metaType="shipClass"
       >
     </div>
-    <div>
-      <p>Acceleration: <span>10km/s</span></p>
-      <p>Armor: <span>10km/s</span></p>
-      <p>Damage output:</p>
-      <p>Max range:</p>
+    <div class="stats">
+      <span>Acceleration: </span><span>{{ design.stats.acceleration }} km/s</span>
+      <span>HP: </span><span>{{ design.stats.hp }}</span>
+      <span>Armor: </span><span>{{ design.stats.armor }}</span>
+      <span>Damage output:</span><span>{{ design.stats.damage }}</span>
+      <span>Max range:</span><span>{{ design.stats.range }}</span>
     </div>
   </section>
 </template>
@@ -43,6 +44,10 @@ export default {
     border: solid 2px $color_text;
     border-radius: 3px;
     text-align: left;
+    .stats {
+      span {
+      }
+    }
     div {
       font-size: 0.8em;
       span {

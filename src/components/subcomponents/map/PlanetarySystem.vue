@@ -1,7 +1,7 @@
 <template lang="html">
   <button class="planetarysystem" type="button" name="button"
     v-on:click="selectPlanetarySystem(system.id)"
-    :class="[system.systemCenter.color, system.type]"
+    :class="[system.systemCenter.color, system.type, isActive ? 'selected_outline' : '']"
     :style="{
       top: system.style.top + 'px',
       left: (system.inSectorCoordinates.x/settings.sectorSize.width)
@@ -48,6 +48,9 @@ export default {
     },
   },
   computed: {
+    isActive() {
+      return this.system.id === this.$store.state.view.currentView;
+    },
   },
   methods: {
     ...mapActions([
@@ -74,6 +77,10 @@ export default {
     // height: auto;
     border-radius: 1rem;
     box-shadow: 0px 0px 10px 0px #fff;
+    &.selected_outline {
+      outline: dashed 2px $color_highlight;
+      outline-offset: 15px;
+    }
     span {
       position: absolute;
       width: max-content;
